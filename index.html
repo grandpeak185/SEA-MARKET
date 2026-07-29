@@ -16,11 +16,12 @@
     --accent-gold: #f59e0b;
     --accent-cyan: #06b6d4;
     --accent-purple: #8b5cf6;
+    --accent-red: #ef4444;
     --shadow: 0 2px 8px rgba(0,0,0,0.06);
     --shadow-hover: 0 8px 24px rgba(0,0,0,0.1);
   }
   * { margin:0; padding:0; box-sizing:border-box; }
-  body { font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif; background: var(--bg); color: var(--text); line-height:1.6; }
+  body { font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans SC","PingFang SC","Microsoft YaHei",sans-serif; background: var(--bg); color: var(--text); line-height:1.6; }
   .container { max-width:1280px; margin:0 auto; padding:20px; }
   header { text-align:center; padding:32px 16px; background: linear-gradient(135deg, #ffffff 0%, #f0fdfa 100%); border-bottom:1px solid var(--border); margin-bottom:24px; }
   header h1 { font-size:28px; font-weight:700; color:var(--text); letter-spacing:-0.5px; }
@@ -97,7 +98,7 @@
 <header>
   <h1>中国至东南亚/南亚集装箱航运市场纵览</h1>
   <div class="subtitle">China–Southeast Asia / South Asia Container Shipping Market Dashboard</div>
-  <div class="update-time">更新日期：2026年7月28日（周二）</div>
+  <div class="update-time">更新日期：2026年7月29日（周三）</div>
 </header>
 
 <!-- KPI Cards -->
@@ -105,7 +106,7 @@
   <div class="kpi-card green">
     <div class="kpi-label">SCFI东南亚航线运价指数</div>
     <div class="kpi-value">$628</div>
-    <div class="kpi-change down">▼ 4.0% 周环比 | 7月连跌三周</div>
+    <div class="kpi-change down">▼ 周环比回落 | 7月连跌三周</div>
   </div>
   <div class="kpi-card gold">
     <div class="kpi-label">中国至东南亚/南亚综合运价</div>
@@ -148,10 +149,12 @@
 <div class="chart-grid">
   <div class="section">
     <h2><span style="color:var(--accent-green)">&#9632;</span> 东南亚/南亚航线运价指数走势</h2>
+    <h3>SCFI东南亚 / NCFI泰国越南 / Drewry Intra-Asia 月度走势</h3>
     <div id="chart_sea_index" class="chart-box"></div>
   </div>
   <div class="section">
     <h2><span style="color:var(--accent-cyan)">&#9632;</span> 中国至主要目的地综合运价对比</h2>
+    <h3>20GP与40HQ参考运价对比（美元）</h3>
     <div id="chart_destination_rates" class="chart-box"></div>
   </div>
 </div>
@@ -160,10 +163,12 @@
 <div class="chart-grid">
   <div class="section">
     <h2><span style="color:var(--accent-gold)">&#9632;</span> 中国至东南亚/南亚月度货量</h2>
+    <h3>2025年与2026年月度货量对比（万TEU）</h3>
     <div id="chart_monthly_volume" class="chart-box"></div>
   </div>
   <div class="section">
-    <h2><span style="color:var(--accent-purple)">&#9632;</span> 亚洲区域内市场份额分布</h2>
+    <h2><span style="color:var(--accent-purple)">&#9632;</span> 市场份额分布</h2>
+    <h3>亚洲区域内（Intra-Asia）集装箱航运市场份额</h3>
     <div id="chart_market_share" class="chart-box"></div>
   </div>
 </div>
@@ -173,18 +178,18 @@
   <h2><span style="color:var(--accent-green)">&#9632;</span> PIL / 太平船务 — 新兴市场深耕者</h2>
   <div class="text-block">
     <div class="highlight-box">
-      <p><strong>新加坡起家，深耕新兴市场50余年。</strong>太平洋国际船务（Pacific International Lines, PIL）由张允中先生于1967年在新加坡创立，是东南亚地区历史最悠久、本土根基最深的集装箱航运企业之一。经过半个多世纪的发展，PIL已从一家区域性散杂货船东成长为覆盖全球100多个国家的综合航运集团。</p>
+      <p><strong>新加坡起家，深耕新兴市场50余年。</strong>太平洋国际船务（Pacific International Lines, PIL）由张允中先生于1967年在新加坡创立，是东南亚地区历史最悠久、本土根基最深的集装箱航运企业之一。经过半个多世纪的发展，PIL已从一家区域性散杂货船东成长为覆盖全球90多个国家和地区、500多个港口的综合航运集团，按运力计位列Alphaliner全球第12位（2025年），运营约100艘集装箱船、总运力超过44万TEU，其中自有船舶82艘。</p>
     </div>
     <div class="two-col">
       <div>
         <h3>东南亚航线全覆盖</h3>
-        <p>作为<strong>东南亚最大的本土船公司</strong>，PIL通过20多条航线与该地区各国建立了紧密联系，代理机构战略性地分布在30多个办事处。每周有5条航线连接印度、巴基斯坦、斯里兰卡和中国以及红海区域，清关效率高，适配能源、建材类货物运输。</p>
+        <p>作为<strong>东南亚最大的本土船公司</strong>，PIL通过20多条航线与该地区各国建立了紧密联系，代理机构战略性地分布在30多个办事处。每周有5条航线连接印度、巴基斯坦、斯里兰卡和中国以及红海区域，清关效率高，适配能源、建材类货物运输。PIL在新加坡保持重要中转枢纽地位，Transhipment Service经新加坡和林查班中转至澳新。</p>
         <h3>南亚航线市占率领先</h3>
         <p>PIL在南亚市场拥有显著的竞争优势，是连接中国与印度、巴基斯坦、孟加拉国等南亚国家的核心承运人之一。其亚洲-中东/红海航线成熟稳定，1990年即开通首条红海全集装箱班轮航线，途经新加坡-科伦坡-红海各港口。</p>
       </div>
       <div>
         <h3>非洲-亚洲航线特色</h3>
-        <p>PIL在非洲市场独具特色，是少数能够提供亚洲至非洲东西海岸全面覆盖的船公司之一。<strong>2026年4月，PIL推出Ubuntu Express (UBX) 周班服务</strong>，提供中国中部/南部、台湾、新加坡至南非的直接广泛连接，进一步加强其非洲网络。此外，PIL还运营印度洋-莫桑比克航线及西南非洲服务。</p>
+        <p>PIL在非洲市场独具特色，是少数能够提供亚洲至非洲东西海岸全面覆盖的船公司之一。<strong>2026年1月，PIL新增亚洲至南非UBX航线</strong>（Ubuntu Express），提供中国中部/南部、台湾、新加坡至南非德班、开普敦的直接连接，并含内陆铁路运输。2026年6月底前，PIL与长荣海运联合推出<strong>远东-南非快线（SAF）服务</strong>，挂靠上海、宁波、高雄、蛇口、新加坡、德班、开普敦。此外，PIL还运营印度洋-莫桑比克航线及西南非洲服务。</p>
         <h3>最新动态</h3>
         <p>2025年10月，PIL开通韩国-中国-印度尼西亚KCI周班航线，连接釜山、仁川、上海、宁波、雅加达、三宝垄及胡志明市。PIL还持续拓展远东-欧洲、跨太平洋至加拿大、南美洲东西海岸等新兴航线。</p>
       </div>
@@ -197,34 +202,36 @@
   <h2><span style="color:var(--accent-cyan)">&#9632;</span> SITC / 海丰国际 — 亚洲区域内绝对龙头</h2>
   <div class="text-block">
     <div class="highlight-box cyan">
-      <p><strong>海丰国际控股有限公司（SITC International Holdings，港交所01308）</strong>是亚洲区域内集装箱航运及综合物流服务的绝对龙头企业。公司以"稳、深、密、快"为核心标签，专注服务亚洲贸易市场，构建覆盖中国、日本、韩国、东南亚、印度等地的密集航线和物流网络。</p>
+      <p><strong>海丰国际控股有限公司（SITC International Holdings，港交所01308）</strong>是亚洲区域内集装箱航运及综合物流服务的绝对龙头企业。公司以"稳、深、密、快"为核心标签，专注服务亚洲贸易市场，构建覆盖中国、日本、韩国、东南亚、印度等地的密集航线和物流网络。2025年上半年收入16.64亿美元（同比+28%），归母净利润6.33亿美元（同比+79.5%），毛利率提升至40.2%，验证了其精细化运营模式的成功。</p>
     </div>
     <div class="two-col">
       <div>
-        <h3>核心运营数据（截至2025年12月）</h3>
+        <h3>核心运营数据（截至2025年6月）</h3>
         <ul class="plain">
           <li><strong>全球排名：</strong>按运力计位列全球第14位、亚洲第8位</li>
-          <li><strong>船队规模：</strong>119艘集装箱船（自有99艘、租用20艘）</li>
-          <li><strong>总运力：</strong>约184,000 TEU</li>
-          <li><strong>贸易航线：</strong>76条</li>
-          <li><strong>覆盖港口：</strong>亚洲16个国家/地区的80个主要港口</li>
-          <li><strong>年运量：</strong>约385万TEU</li>
+          <li><strong>船队规模：</strong>119艘集装箱船（自有101艘、租用18艘）</li>
+          <li><strong>总运力：</strong>约186,000 TEU，平均船龄9.4年</li>
+          <li><strong>贸易航线：</strong>82条（含16条联合服务、24条舱位互换）</li>
+          <li><strong>覆盖港口：</strong>亚洲15个国家/地区的82个主要港口</li>
+          <li><strong>2025上半年运量：</strong>183.0万TEU，同比+7.3%</li>
           <li><strong>市场份额：</strong>Intra-Asia市场约8%</li>
         </ul>
       </div>
       <div>
         <h3>财务与战略布局</h3>
         <ul class="plain">
-          <li><strong>2025年收入：</strong>约34.1亿美元</li>
-          <li><strong>2025年净利润：</strong>约12.2亿美元，利润大增近20%</li>
-          <li><strong>资本负债比率：</strong>降为0，财务结构极其稳健</li>
-          <li><strong>在手订单：</strong>在建21艘新船，持续扩大自有运力</li>
+          <li><strong>2024年收入：</strong>30.58亿美元（同比+25.9%）</li>
+          <li><strong>2024年净利润：</strong>10.28亿美元（同比+93.5%）</li>
+          <li><strong>2025H1收入：</strong>16.64亿美元（同比+28.0%）</li>
+          <li><strong>2025H1净利润：</strong>6.33亿美元（同比+79.5%）</li>
+          <li><strong>2025全年（研报预测）：</strong>收入约34.1亿美元，净利润约12.2亿美元</li>
+          <li><strong>在手订单：</strong>14艘约2.88万TEU（含4艘2700TEU新造合同）</li>
           <li><strong>物流园布局：</strong>在中国、越南、泰国等地运营多个物流园区</li>
           <li><strong>服务特色：</strong>高密度航运网络+高频率班次+海陆一站式服务体系</li>
         </ul>
       </div>
     </div>
-    <p style="margin-top:12px;">SITC是中国运力规模最大的民营航运物流公司，凭借对亚洲区域内贸易的深刻理解和精细化运营，在RCEP框架下持续受益于区域贸易增长。其网络覆盖越南、泰国、菲律宾、柬埔寨、印尼、新加坡、马来西亚、文莱、缅甸、印度、孟加拉等关键市场。</p>
+    <p style="margin-top:12px;">SITC是中国运力规模最大的民营航运物流公司，凭借对亚洲区域内贸易的深刻理解和精细化运营，在RCEP框架下持续受益于区域贸易增长。2025上半年平均运费（不含舱位互换）达776.4美元/TEU，同比涨22.8%。其网络覆盖越南、泰国、菲律宾、柬埔寨、印尼、新加坡、马来西亚、文莱、缅甸、印度、孟加拉等关键市场。资本负债比率降为0，财务结构极其稳健。注：2025全年34.1亿美元/12.2亿美元为券商研报预测值，具体以正式年报为准。</p>
   </div>
 </div>
 
@@ -233,31 +240,32 @@
   <h2><span style="color:var(--accent-gold)">&#9632;</span> COSCO洋浦国际枢纽港战略</h2>
   <div class="text-block">
     <div class="highlight-box gold">
-      <p><strong>中远海运将海南洋浦港打造为东南亚/南亚核心中转枢纽。</strong>依托海南自贸港"零关税""低税率"等政策优势，中远海运洋浦港不断织密全球航线网络，从"区域码头"蜕变为"国际枢纽雏形"，成为西部陆海新通道航运枢纽的关键节点。</p>
+      <p><strong>中远海运将海南洋浦港打造为东南亚/南亚核心中转枢纽。</strong>依托海南自贸港"零关税""低税率"等政策优势，中远海运洋浦港不断织密全球航线网络，从"区域码头"蜕变为"国际枢纽雏形"，成为西部陆海新通道航运枢纽的关键节点。2025年12月海南自贸港全岛封关运作启动，"中国洋浦港"船籍港累计登记船舶103艘、在册83艘、总运力762.15万载重吨（截至2026年1月），居全国自贸区首位。</p>
     </div>
     <div class="two-col">
       <div>
         <h3>航线网络升级（2025-2026）</h3>
-        <p><strong>外贸航线全面覆盖东盟十国。</strong>目前洋浦港已累计开通内外贸航线66条，其中外贸航线36条、内贸航线30条，全面覆盖东盟十国主要港口。2025年新增投产3个泊位，年设计吞吐能力逐步向500万标箱释放。</p>
+        <p><strong>外贸航线全面覆盖东盟十国。</strong>截至2025年底，洋浦港累计开通内外贸航线59条，海南全省集装箱班轮航线共77条（其中外贸38条）。2025年新增洋浦至美西、美东、南美西等远洋航线，10月27日中远海运远东-南美西航线首航洋浦（"中远亚洲"轮），贯通钱凯港。码头扩建新增2个20万吨级、1个15万吨级新泊位，岸线1970米，设计通过能力迈向500万标箱。</p>
         <ul class="plain">
           <li><strong>SEI2精品航线：</strong>强化东南亚核心港口快线服务</li>
           <li><strong>YBX航线：</strong>洋浦至马来西亚巴生港实现5天直航，较传统中转缩短10天以上</li>
           <li><strong>AWE4美东升级：</strong>洋浦港接入远东-美东航线网络</li>
-          <li><strong>CPV美西北航线：</strong>洋浦港首条远东-美西北/加拿大直达航线（2025年1月开通）</li>
+          <li><strong>CPV美西北航线：</strong>洋浦港首条远东-美西北/加拿大直达航线</li>
           <li><strong>CI1/YCX南亚直航：</strong>实现对印度、巴基斯坦、孟加拉等南亚国家直达覆盖</li>
-          <li><strong>内外贸同船运输：</strong>8条同船运输航线，充分发挥自贸港政策优势</li>
+          <li><strong>内外贸同船运输：</strong>充分发挥自贸港政策优势</li>
         </ul>
       </div>
       <div>
         <h3>洋浦港运营数据表</h3>
         <table>
-          <tr><th>指标</th><th>2025年</th><th>同比变化</th><th>备注</th></tr>
-          <tr><td>集装箱吞吐量</td><td class="text-right">331.1万TEU</td><td class="text-center"><span class="badge badge-green">+53.9%</span></td><td>全国排名升至第18位</td></tr>
-          <tr><td>货物吞吐量</td><td class="text-right">8,594.8万吨</td><td class="text-center"><span class="badge badge-green">突破目标</span></td><td>超额完成年度计划</td></tr>
-          <tr><td>航线总数</td><td class="text-right">约66条</td><td class="text-center"><span class="badge badge-cyan">持续新增</span></td><td>外贸36条/内贸30条</td></tr>
-          <tr><td>万吨级泊位</td><td class="text-right">41个</td><td class="text-center"><span class="badge badge-green">+9个</span></td><td>较2021年新增</td></tr>
-          <tr><td>最大靠泊能力</td><td class="text-right">2.4万TEU</td><td class="text-center">-</td><td>全球最大集装箱船</td></tr>
-          <tr><td>2026上半年吞吐量</td><td class="text-right">194.28万TEU</td><td class="text-center"><span class="badge badge-green">+50%</span></td><td>封关运作半年数据</td></tr>
+          <tr><th>指标</th><th>数据</th><th>同比变化</th><th>备注</th></tr>
+          <tr><td>2025年集装箱吞吐量</td><td class="text-right">331.1万TEU</td><td class="text-center"><span class="badge badge-green">+72.5%</span></td><td>中远口径312.3万标箱</td></tr>
+          <tr><td>2025年货物吞吐量</td><td class="text-right">8,594.8万吨</td><td class="text-center"><span class="badge badge-green">+29.6%</span></td><td>超额完成年度计划</td></tr>
+          <tr><td>2025年外贸货物吞吐量</td><td class="text-right">4,248.2万吨</td><td class="text-center"><span class="badge badge-green">+12.8%</span></td><td>外贸稳健增长</td></tr>
+          <tr><td>航线总数（截至2025底）</td><td class="text-right">59条</td><td class="text-center"><span class="badge badge-cyan">持续新增</span></td><td>海南全省77条（外贸38条）</td></tr>
+          <tr><td>2026年1-5月吞吐量</td><td class="text-right">164.4万TEU</td><td class="text-center"><span class="badge badge-green">+53.9%</span></td><td>封关后增速强劲</td></tr>
+          <tr><td>船籍港登记船舶</td><td class="text-right">103艘</td><td class="text-center"><span class="badge badge-green">封关后+19艘</span></td><td>总运力762.15万载重吨</td></tr>
+          <tr><td>最大靠泊能力</td><td class="text-right">20万吨级</td><td class="text-center">-</td><td>新增2个20万吨级泊位</td></tr>
         </table>
         <p style="margin-top:10px; font-size:13px; color:var(--text-secondary);">数据来源：中远海运集团、洋浦交通运输港航局、海口海关</p>
       </div>
@@ -283,7 +291,7 @@
       <td class="text-center">20+条</td>
       <td class="text-center">5条周班</td>
       <td class="text-center">25+</td>
-      <td>东南亚最大本土船东，非洲-亚洲特色航线</td>
+      <td>东南亚最大本土船东，非洲-亚洲特色航线，全球第12位</td>
     </tr>
     <tr>
       <td><strong>COSCO</strong> 中远海运</td>
@@ -291,7 +299,7 @@
       <td class="text-center">全面覆盖</td>
       <td class="text-center">CI1/YCX直航</td>
       <td class="text-center">30+</td>
-      <td>洋浦港枢纽战略，内外贸同船运输</td>
+      <td>洋浦港枢纽战略，内外贸同船运输，59条航线</td>
     </tr>
     <tr>
       <td><strong>CMA CGM</strong> 达飞轮船</td>
@@ -331,7 +339,7 @@
       <td class="text-center">CS3等主力</td>
       <td class="text-center">印巴服务</td>
       <td class="text-center">18+</td>
-      <td>与万海/阳明合作亚洲区内航线</td>
+      <td>与万海/阳明合作亚洲区内航线，联合PIL开SAF南非线</td>
     </tr>
     <tr>
       <td><strong>OOCL</strong> 东方海外</td>
@@ -355,15 +363,15 @@
       <td class="text-center">亚洲区内核心</td>
       <td class="text-center">TTX印度直航</td>
       <td class="text-center">30+</td>
-      <td>亚洲区内专家，2026年4月运价恢复计划</td>
+      <td>亚洲区内专家，121艘全自有船，净利润率22.4%领跑</td>
     </tr>
     <tr>
       <td><strong>SITC</strong> 海丰国际</td>
       <td><span class="badge badge-cyan">独立</span></td>
-      <td class="text-center">76条航线覆盖</td>
+      <td class="text-center">82条航线覆盖</td>
       <td class="text-center">印度/孟加拉</td>
-      <td class="text-center">76</td>
-      <td>Intra-Asia市占率8%，全球第14位</td>
+      <td class="text-center">82</td>
+      <td>Intra-Asia市占率8%，全球第14位，119艘船</td>
     </tr>
     <tr>
       <td><strong>RCL</strong> 宏海箱运</td>
@@ -371,7 +379,7 @@
       <td class="text-center">10+条</td>
       <td class="text-center">印巴/红海</td>
       <td class="text-center">15+</td>
-      <td>泰国本土船东，专注亚洲近洋</td>
+      <td>泰国本土船东，47艘船，2024净利飙升510%</td>
     </tr>
     <tr>
       <td><strong>X-Press Feeders</strong></td>
@@ -452,8 +460,8 @@
       </ul>
       <h3>供应链风险</h3>
       <ul class="plain">
-        <li><span class="badge badge-green">低</span> 新加坡港运作稳定，PSA表示未经历拥堵</li>
-        <li><span class="badge badge-green">低</span> 洋浦港基础设施持续完善，泊位增加缓解拥堵</li>
+        <li><span class="badge badge-green">低</span> 新加坡港运作稳定，2026年前4月吞吐量1418万TEU增6.1%</li>
+        <li><span class="badge badge-green">低</span> 洋浦港基础设施持续完善，封关后吞吐量增53.9%</li>
         <li><span class="badge badge-gold">中</span> 越南部分港口旺季期间存在短暂延误风险</li>
       </ul>
     </div>
@@ -487,7 +495,7 @@
     <tr><td>2026-06</td><td class="text-right">654</td><td class="text-right">1,380</td><td class="text-right">440</td><td class="text-center"><span class="badge badge-green">+11.3%</span></td><td class="text-center">84%</td><td>高位回落</td></tr>
     <tr><td>2026-07</td><td class="text-right">628</td><td class="text-right">1,350</td><td class="text-right">430</td><td class="text-center"><span class="badge badge-green">+11.6%</span></td><td class="text-center">82%</td><td>连跌三周</td></tr>
   </table>
-  <p style="margin-top:10px; font-size:12px; color:var(--text-secondary);">货量数据为估算值，基于上海航运交易所及行业研报综合推算。具体数据以官方统计为准。</p>
+  <p style="margin-top:10px; font-size:12px; color:var(--text-secondary);">货量数据为估算值，基于上海航运交易所及行业研报综合推算。具体数据以官方统计为准。SCFI东南亚7月24日综合指数3062.95点，环比跌0.56%。</p>
 </div>
 
 <!-- Port Delays -->
@@ -519,7 +527,7 @@
     <tr><td>青岛</td><td>新加坡/巴生/釜山转</td><td class="text-right">$320-380</td><td class="text-right">$520-620</td><td class="text-center">7-10天</td><td class="text-center">10+</td><td>COSCO, PIL, SITC等</td></tr>
     <tr><td>天津</td><td>新加坡/巴生/釜山转</td><td class="text-right">$340-400</td><td class="text-right">$550-650</td><td class="text-center">8-12天</td><td class="text-center">8+</td><td>COSCO, MSC, PIL等</td></tr>
     <tr><td>厦门</td><td>新加坡/巴生/胡志明</td><td class="text-right">$270-330</td><td class="text-right">$460-550</td><td class="text-center">5-8天</td><td class="text-center">12+</td><td>Wan Hai, SITC, PIL等</td></tr>
-    <tr><td>洋浦港</td><td>新加坡/巴生/雅加达/曼谷</td><td class="text-right">$260-310</td><td class="text-right">$440-520</td><td class="text-center">3-7天</td><td class="center">15+</td><td>COSCO为主，多家中转</td></tr>
+    <tr><td>洋浦港</td><td>新加坡/巴生/雅加达/曼谷</td><td class="text-right">$260-310</td><td class="text-right">$440-520</td><td class="text-center">3-7天</td><td class="text-center">15+</td><td>COSCO为主，多家中转</td></tr>
   </table>
   <p style="margin-top:10px; font-size:12px; color:var(--text-secondary);">注：运价仅供参考，实际运价需订舱系统或合同价确认。洋浦港享受海南自贸港政策优惠。</p>
 </div>
@@ -528,11 +536,11 @@
 <div class="section">
   <h2><span style="color:var(--accent-green)">&#9632;</span> 市场分析</h2>
   <div class="text-block">
-    <p><strong>区域贸易持续扩张，航线网络加密。</strong>2026年上半年，中国与东盟进出口总额达4.34万亿元，同比大涨18.2%，多年互为第一大贸易伙伴的地位进一步巩固。在区域全面经济伙伴关系协定（RCEP）框架下，原产地累积规则促进产业链深度融合，带动集装箱货量持续增长。亚洲区域内市场2025年前十月集装箱货量达4,123.4万TEU，累计同比增长5.3%，其中4-5月增速达9%，显示出强劲的贸易活力。</p>
-    <p><strong>区域性船公司竞争优势凸显。</strong>在Intra-Asia市场，<strong>SITC（海丰国际）</strong>以约8%的市场份额稳居亚洲区域内龙头，76条航线、119艘船的密集网络覆盖15个国家82个港口，2025年收入34.1亿美元、净利润12.2亿美元的亮眼业绩验证了其精细化运营模式的成功。<strong>Wan Hai（万海航运）</strong>作为台湾起家的亚洲区内专家，2025年推出TTX越南-泰国-印度直航航线，并与长荣、阳明合作推出CS3中国-东南亚服务，2026年4月更宣布实施运价恢复计划（RR），覆盖东南亚主干航线及东南亚至南亚区域航线。</p>
-    <p><strong>PIL（太平船务）</strong>凭借50余年的新兴市场深耕经验，在东南亚本土市场拥有无可替代的品牌认知度，其非洲-亚洲特色航线更是全球独树一帜。2026年4月推出的Ubuntu Express (UBX) 服务进一步强化了亚洲至南非的连接。<strong>RCL（宏海箱运）</strong>作为泰国本土船公司，专注于东北亚、东南亚、印度次大陆及中东航线，以灵活的短平快服务在区域市场占据一席之地。</p>
-    <p><strong>洋浦港崛起重塑区域格局。</strong>中远海运将洋浦港打造为东南亚/南亚核心中转枢纽的战略正加速落地。2025年洋浦港集装箱吞吐量达331.1万TEU，同比增长53.9%，全国排名从第26位跃升至第18位。2026年上半年继续保持约50%的增速，外贸航线覆盖东盟十国主要港口。SEI2精品航线、YBX直航马来西亚、CI1/YCX南亚直航等产品的推出，使洋浦港成为连接中国与东南亚、南亚市场的重要桥梁。海南自贸港封关运作后的政策红利，将进一步提升洋浦港的枢纽竞争力。</p>
-    <p><strong>运价短期回调，中长期看好。</strong>SCFI东南亚航线运价7月连跌三周至628美元/TEU，较5月峰值回落约5.5%，主要受旺季前需求波动影响。然而，Drewry Intra-Asia指数仍维持在1,920美元/FEU的相对高位。考虑到RCEP深入实施、区域供应链重构及东南亚制造业持续扩张，中国至东南亚/南亚航线的中长期需求基本面依然稳固。船公司在2026年二季度密集实施的PSS和RR附加费，也反映出对旺季运价的信心。</p>
+    <p><strong>区域贸易持续扩张，航线网络加密。</strong>2026年上半年，中国与东盟进出口总额持续增长，多年互为第一大贸易伙伴的地位进一步巩固。在区域全面经济伙伴关系协定（RCEP）框架下，原产地累积规则促进产业链深度融合，带动集装箱货量持续增长。亚洲区域内市场2025年前十月集装箱货量达4,123.4万TEU，累计同比增长5.3%，其中4-5月增速达9%，显示出强劲的贸易活力。2025年中国对东盟出口3225亿美元，同比增长13%，东盟稳居中国第一大贸易伙伴。</p>
+    <p><strong>区域性船公司竞争优势凸显。</strong>在Intra-Asia市场，<strong>SITC（海丰国际）</strong>以约8%的市场份额稳居亚洲区域内龙头，82条航线、119艘船的密集网络覆盖15个国家82个港口，2025上半年收入16.64亿美元、净利润6.33亿美元（同比+79.5%）、毛利率40.2%的亮眼业绩验证了其精细化运营模式的成功，平均运费达776.4美元/TEU（同比+22.8%）。<strong>Wan Hai（万海航运）</strong>作为台湾起家的亚洲区内专家，2025年推出TTX越南-泰国-印度直航航线，并与长荣、阳明合作推出CS3中国-东南亚服务，2026年4月更宣布实施运价恢复计划（RR），覆盖东南亚主干航线及东南亚至南亚区域航线，全年净利润率22.4%领跑行业，运营121艘全自有船舶、总运力59.5万TEU，手持订单38艘。</p>
+    <p><strong>PIL（太平船务）</strong>凭借50余年的新兴市场深耕经验，在东南亚本土市场拥有无可替代的品牌认知度，运营约100艘船、总运力超44万TEU，其非洲-亚洲特色航线更是全球独树一帜。2026年1月新增亚洲至南非UBX航线，6月底前与长荣联合推出远东-南非快线（SAF）服务，进一步强化亚洲至非洲的连接。<strong>RCL（宏海箱运）</strong>作为泰国本土船公司，专注于东北亚、东南亚、印度次大陆及中东航线，运营47艘船，2024年净利润飙升510%至2.6亿美元，2025上半年营业收入同比增长39.1%，以灵活的短平快服务在区域市场占据一席之地，并在现代重工下单建造公司史上最大型集装箱船。</p>
+    <p><strong>洋浦港崛起重塑区域格局。</strong>中远海运将洋浦港打造为东南亚/南亚核心中转枢纽的战略正加速落地。2025年洋浦港集装箱吞吐量达331.1万TEU（中远口径312.3万标箱，同比增长72.5%），2026年1-5月继续保持53.9%的增速，达164.4万TEU。截至2025年底累计开通59条内外贸航线，外贸航线覆盖东盟十国主要港口。SEI2精品航线、YBX直航马来西亚、CI1/YCX南亚直航等产品的推出，使洋浦港成为连接中国与东南亚、南亚市场的重要桥梁。2025年10月远东-南美西航线首航洋浦贯通钱凯港，海南自贸港封关运作后的政策红利及"中国洋浦港"船籍港103艘登记船舶，将进一步提升洋浦港的枢纽竞争力。</p>
+    <p><strong>运价短期回调，中长期看好。</strong>SCFI综合指数7月24日报3062.95点，环比跌0.56%，连续第三周回落；东南亚航线运价7月连跌三周至628美元/TEU，较5月峰值回落约5.5%，主要受旺季前需求波动影响。上海至马尼拉降至555美元/FEU，上海至JNPT（南亚）降至2155美元/FEU。然而，Drewry Intra-Asia指数仍维持在相对高位，5月曾创两年新高939美元/FEU。考虑到RCEP深入实施、区域供应链重构及东南亚制造业持续扩张，中国至东南亚/南亚航线的中长期需求基本面依然稳固。船公司在2026年二季度密集实施的PSS和RR附加费，也反映出对旺季运价的信心。</p>
   </div>
 </div>
 
@@ -542,7 +550,8 @@
   <ol class="source-list">
     <li>上海航运交易所（SSE）— SCFI综合指数及分航线运价</li>
     <li>Drewry — Intra-Asia Container Index</li>
-    <li>新加坡海事及港务管理局（MPA）— 新加坡港吞吐量数据</li>
+    <li>新加坡海事及港务管理局（MPA）— 新加坡港吞吐量数据（2025全年4466万TEU）</li>
+    <li>PSA International — 新加坡旗舰码头吞吐量及海外码头数据</li>
     <li>中远海运集团 — 洋浦港航线网络及运营数据</li>
     <li>洋浦交通运输港航局 — 洋浦港货物吞吐量统计</li>
     <li>海口海关 — 海南口岸进出口数据</li>
@@ -553,10 +562,10 @@
     <li>Alphaliner — 全球班轮公司运力排名</li>
     <li>中国海关总署 — 中国与东盟贸易数据</li>
     <li>越南海关/商务部 — 越南进出口统计</li>
-    <li>兴业证券、中信期货 — 航运行业研报</li>
+    <li>国金证券、西南证券 — 海丰国际研报</li>
     <li>World Cargo News, Shipping News Net — 行业新闻报道</li>
   </ol>
-  <p style="margin-top:12px; font-size:12px; color:var(--text-secondary);">免责声明：本仪表板数据来源于公开信息，仅供参考，不构成投资建议。具体运价、附加费及船期以各船公司最新公告和订舱系统为准。部分数据为行业估算值，标注"需订舱系统/合同价确认"的内容请直接联系相关船公司或货代获取准确信息。</p>
+  <p style="margin-top:12px; font-size:12px; color:var(--text-secondary);">免责声明：本仪表板数据来源于公开信息，仅供参考，不构成投资建议。具体运价、附加费及船期以各船公司最新公告和订舱系统为准。部分数据为行业估算值，标注"需订舱系统/合同价确认"的内容请直接联系相关船公司或货代获取准确信息。海丰国际2025全年34.1亿美元/12.2亿美元为券商研报预测值，具体以正式年报为准。</p>
 </div>
 
 </div>

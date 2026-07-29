@@ -39,9 +39,9 @@
     var el = document.getElementById('chart_destination_rates');
     if (!el) return;
     var chart = echarts.init(el, null, { renderer: 'svg' });
-    var ports = ['新加坡','巴生港','雅加达','胡志明市','曼谷','孟买','科伦坡'];
-    var rates20 = [320,290,340,310,280,450,380];
-    var rates40 = [540,495,580,525,470,780,660];
+    var ports = ['新加坡','巴生港','雅加达','胡志明市','曼谷/林查班','孟买','科伦坡'];
+    var rates20 = [320,290,340,310,293,450,380];
+    var rates40 = [540,495,580,525,563,780,660];
 
     chart.setOption({
       grid: defaultGrid,
