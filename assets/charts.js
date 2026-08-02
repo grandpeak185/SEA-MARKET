@@ -25,7 +25,7 @@
     grid: defaultGrid,
     tooltip: defaultTooltip,
     legend: {
-      data: ['SCFI综合指数', '东南亚分航线', '印巴分航线'],
+      data: ['SCFI综合指数', 'SEAFI东南亚指数', '印巴分航线运价'],
       bottom: 0,
       textStyle: { color: '#475569', fontSize: 11 }
     },
@@ -38,7 +38,7 @@
     yAxis: [
       {
         type: 'value',
-        name: 'SCFI指数',
+        name: 'SCFI/SEAFI指数',
         nameTextStyle: { color: '#475569', fontSize: 11 },
         axisLine: { show: false },
         axisTick: { show: false },
@@ -47,7 +47,7 @@
       },
       {
         type: 'value',
-        name: '运价(USD)',
+        name: '运价(USD/TEU)',
         nameTextStyle: { color: '#475569', fontSize: 11 },
         axisLine: { show: false },
         axisTick: { show: false },
@@ -76,26 +76,25 @@
         }
       },
       {
-        name: '东南亚分航线',
+        name: 'SEAFI东南亚指数',
+        type: 'line',
+        data: [2750, 2620, 2680, 2810, 2920, 3010, 3093],
+        smooth: true,
+        symbol: 'circle',
+        symbolSize: 6,
+        lineStyle: { width: 3, color: '#06b6d4' },
+        itemStyle: { color: '#06b6d4' }
+      },
+      {
+        name: '印巴分航线运价',
         type: 'line',
         yAxisIndex: 1,
-        data: [680, 665, 640, 695, 720, 745, 752],
+        data: [820, 795, 780, 840, 875, 910, 865],
         smooth: true,
         symbol: 'circle',
         symbolSize: 6,
         lineStyle: { width: 3, color: '#f59e0b' },
         itemStyle: { color: '#f59e0b' }
-      },
-      {
-        name: '印巴分航线',
-        type: 'line',
-        yAxisIndex: 1,
-        data: [820, 795, 780, 840, 875, 910, 935],
-        smooth: true,
-        symbol: 'circle',
-        symbolSize: 6,
-        lineStyle: { width: 3, color: '#8b5cf6' },
-        itemStyle: { color: '#8b5cf6' }
       }
     ]
   });
@@ -105,7 +104,7 @@
     grid: defaultGrid,
     tooltip: defaultTooltip,
     legend: {
-      data: ['20GP', '40GP'],
+      data: ['20GP (USD)', '40GP (USD)'],
       bottom: 0,
       textStyle: { color: '#475569', fontSize: 11 }
     },
@@ -126,9 +125,9 @@
     },
     series: [
       {
-        name: '20GP',
+        name: '20GP (USD)',
         type: 'bar',
-        data: [320, 310, 340, 290, 305, 330, 420, 450],
+        data: [520, 600, 700, 350, 500, 400, 1545, 900],
         barWidth: '30%',
         itemStyle: {
           color: {
@@ -142,9 +141,9 @@
         }
       },
       {
-        name: '40GP',
+        name: '40GP (USD)',
         type: 'bar',
-        data: [580, 560, 620, 510, 540, 590, 780, 820],
+        data: [950, 1050, 1250, 620, 900, 700, 1750, 1600],
         barWidth: '30%',
         itemStyle: {
           color: {
@@ -200,7 +199,7 @@
         name: '东南亚货量',
         type: 'bar',
         stack: 'total',
-        data: [185, 158, 198, 205, 212, 208, 218],
+        data: [120, 105, 130, 135, 140, 138, 145],
         barWidth: '45%',
         itemStyle: { color: '#10b981', borderRadius: [0, 0, 0, 0] }
       },
@@ -208,7 +207,7 @@
         name: '南亚货量',
         type: 'bar',
         stack: 'total',
-        data: [68, 62, 75, 80, 85, 82, 88],
+        data: [55, 50, 60, 62, 65, 63, 68],
         barWidth: '45%',
         itemStyle: { color: '#06b6d4', borderRadius: [4, 4, 0, 0] }
       },
@@ -266,18 +265,19 @@
         },
         labelLine: { show: true, length: 10, length2: 8 },
         data: [
-          { value: 18.5, name: 'COSCO', itemStyle: { color: '#10b981' } },
-          { value: 16.2, name: 'MSC', itemStyle: { color: '#06b6d4' } },
-          { value: 12.8, name: 'Maersk', itemStyle: { color: '#3b82f6' } },
-          { value: 10.5, name: 'CMA CGM', itemStyle: { color: '#8b5cf6' } },
-          { value: 8.5, name: 'Evergreen', itemStyle: { color: '#f59e0b' } },
-          { value: 7.2, name: 'ONE', itemStyle: { color: '#ef4444' } },
-          { value: 6.8, name: 'HMM / 其他', itemStyle: { color: '#94a3b8' } },
-          { value: 5.5, name: 'Wan Hai', itemStyle: { color: '#f97316' } },
-          { value: 4.8, name: 'PIL', itemStyle: { color: '#14b8a6' } },
-          { value: 4.2, name: 'Yang Ming', itemStyle: { color: '#6366f1' } },
+          { value: 18.0, name: 'COSCO', itemStyle: { color: '#10b981' } },
+          { value: 16.5, name: 'MSC', itemStyle: { color: '#06b6d4' } },
+          { value: 12.5, name: 'Maersk', itemStyle: { color: '#3b82f6' } },
+          { value: 10.2, name: 'CMA CGM', itemStyle: { color: '#8b5cf6' } },
+          { value: 8.8, name: 'SITC', itemStyle: { color: '#84cc16' } },
+          { value: 7.5, name: 'Evergreen', itemStyle: { color: '#f59e0b' } },
+          { value: 6.2, name: 'ONE', itemStyle: { color: '#ef4444' } },
+          { value: 5.8, name: 'Wan Hai', itemStyle: { color: '#f97316' } },
+          { value: 4.5, name: 'PIL', itemStyle: { color: '#14b8a6' } },
+          { value: 4.0, name: 'RCL', itemStyle: { color: '#6366f1' } },
           { value: 3.5, name: 'OOCL', itemStyle: { color: '#ec4899' } },
-          { value: 1.5, name: 'SITC', itemStyle: { color: '#84cc16' } }
+          { value: 1.5, name: 'X-Press Feeders', itemStyle: { color: '#a78bfa' } },
+          { value: 1.0, name: '其他', itemStyle: { color: '#94a3b8' } }
         ]
       }
     ]
