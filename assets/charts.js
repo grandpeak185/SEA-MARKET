@@ -89,7 +89,7 @@
         name: '印巴分航线运价',
         type: 'line',
         yAxisIndex: 1,
-        data: [820, 795, 780, 840, 875, 910, 865],
+        data: [820, 795, 780, 840, 875, 910, 880],
         smooth: true,
         symbol: 'circle',
         symbolSize: 6,
@@ -127,7 +127,7 @@
       {
         name: '20GP (USD)',
         type: 'bar',
-        data: [520, 600, 700, 350, 500, 400, 1545, 900],
+        data: [400, 480, 620, 320, 450, 380, 1520, 880],
         barWidth: '30%',
         itemStyle: {
           color: {
@@ -143,7 +143,7 @@
       {
         name: '40GP (USD)',
         type: 'bar',
-        data: [950, 1050, 1250, 620, 900, 700, 1750, 1600],
+        data: [650, 850, 1100, 580, 800, 650, 1720, 1550],
         barWidth: '30%',
         itemStyle: {
           color: {
@@ -199,7 +199,7 @@
         name: '东南亚货量',
         type: 'bar',
         stack: 'total',
-        data: [120, 105, 130, 135, 140, 138, 145],
+        data: [135, 118, 148, 155, 162, 158, 168],
         barWidth: '45%',
         itemStyle: { color: '#10b981', borderRadius: [0, 0, 0, 0] }
       },
@@ -207,7 +207,7 @@
         name: '南亚货量',
         type: 'bar',
         stack: 'total',
-        data: [55, 50, 60, 62, 65, 63, 68],
+        data: [62, 55, 68, 72, 75, 73, 78],
         barWidth: '45%',
         itemStyle: { color: '#06b6d4', borderRadius: [4, 4, 0, 0] }
       },
@@ -215,7 +215,7 @@
         name: '合计同比',
         type: 'line',
         yAxisIndex: 1,
-        data: [8.5, 7.2, 9.1, 10.3, 11.2, 9.8, 9.2],
+        data: [12.5, 10.2, 14.8, 16.5, 19.2, 22.8, 18.2],
         smooth: true,
         symbol: 'circle',
         symbolSize: 6,
@@ -265,18 +265,18 @@
         },
         labelLine: { show: true, length: 10, length2: 8 },
         data: [
-          { value: 18.0, name: 'COSCO', itemStyle: { color: '#10b981' } },
-          { value: 16.5, name: 'MSC', itemStyle: { color: '#06b6d4' } },
-          { value: 12.5, name: 'Maersk', itemStyle: { color: '#3b82f6' } },
-          { value: 10.2, name: 'CMA CGM', itemStyle: { color: '#8b5cf6' } },
-          { value: 8.8, name: 'SITC', itemStyle: { color: '#84cc16' } },
-          { value: 7.5, name: 'Evergreen', itemStyle: { color: '#f59e0b' } },
-          { value: 6.2, name: 'ONE', itemStyle: { color: '#ef4444' } },
-          { value: 5.8, name: 'Wan Hai', itemStyle: { color: '#f97316' } },
-          { value: 4.5, name: 'PIL', itemStyle: { color: '#14b8a6' } },
-          { value: 4.0, name: 'RCL', itemStyle: { color: '#6366f1' } },
+          { value: 17.5, name: 'COSCO', itemStyle: { color: '#10b981' } },
+          { value: 16.0, name: 'MSC', itemStyle: { color: '#06b6d4' } },
+          { value: 12.0, name: 'Maersk', itemStyle: { color: '#3b82f6' } },
+          { value: 10.5, name: 'CMA CGM', itemStyle: { color: '#8b5cf6' } },
+          { value: 9.2, name: 'SITC', itemStyle: { color: '#84cc16' } },
+          { value: 7.8, name: 'Evergreen', itemStyle: { color: '#f59e0b' } },
+          { value: 6.0, name: 'Wan Hai', itemStyle: { color: '#f97316' } },
+          { value: 5.8, name: 'ONE', itemStyle: { color: '#ef4444' } },
+          { value: 4.8, name: 'PIL', itemStyle: { color: '#14b8a6' } },
+          { value: 4.2, name: 'RCL', itemStyle: { color: '#6366f1' } },
           { value: 3.5, name: 'OOCL', itemStyle: { color: '#ec4899' } },
-          { value: 1.5, name: 'X-Press Feeders', itemStyle: { color: '#a78bfa' } },
+          { value: 1.7, name: 'X-Press Feeders', itemStyle: { color: '#a78bfa' } },
           { value: 1.0, name: '其他', itemStyle: { color: '#94a3b8' } }
         ]
       }
