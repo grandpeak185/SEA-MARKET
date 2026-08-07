@@ -1,1603 +1,687 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>中国至东南亚/南亚集装箱航运市场纵览</title>
-    <style>
-        :root {
-            --bg: #f0f4f8;
-            --card-bg: #ffffff;
-            --text: #1a2332;
-            --text-secondary: #5a6a7e;
-            --accent-green: #0d9488;
-            --accent-gold: #d4a017;
-            --accent-cyan: #0891b2;
-            --accent-purple: #7c3aed;
-            --border: #e2e8f0;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            line-height: 1.6;
-            min-height: 100vh;
-            background-image:
-                radial-gradient(ellipse at 20% 20%, rgba(13, 148, 136, 0.03) 0%, transparent 50%),
-                radial-gradient(ellipse at 80% 80%, rgba(8, 145, 178, 0.03) 0%, transparent 50%),
-                radial-gradient(ellipse at 50% 50%, rgba(124, 58, 237, 0.02) 0%, transparent 50%);
-        }
-
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-
-        /* Header */
-        .header {
-            text-align: center;
-            padding: 40px 20px 30px;
-            background: linear-gradient(135deg, #0d9488 0%, #0891b2 50%, #7c3aed 100%);
-            color: #ffffff;
-            border-radius: 16px;
-            margin-bottom: 30px;
-            box-shadow: 0 4px 24px rgba(13, 148, 136, 0.2);
-        }
-
-        .header h1 {
-            font-size: clamp(1.5rem, 3vw, 2.2rem);
-            font-weight: 700;
-            letter-spacing: 0.05em;
-            margin-bottom: 8px;
-        }
-
-        .header .subtitle {
-            font-size: 0.95rem;
-            opacity: 0.9;
-            font-weight: 400;
-        }
-
-        /* Section */
-        .section {
-            background: var(--card-bg);
-            border-radius: 12px;
-            padding: 24px 28px;
-            margin-bottom: 24px;
-            box-shadow: 0 1px 8px rgba(0, 0, 0, 0.06);
-            border: 1px solid var(--border);
-        }
-
-        .section h2 {
-            font-size: 1.35rem;
-            color: var(--text);
-            margin-bottom: 16px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid var(--accent-green);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .section h2::before {
-            content: '';
-            display: inline-block;
-            width: 6px;
-            height: 24px;
-            background: linear-gradient(180deg, var(--accent-green), var(--accent-cyan));
-            border-radius: 3px;
-        }
-
-        .section h3 {
-            font-size: 1.1rem;
-            color: var(--text);
-            margin-bottom: 12px;
-            padding: 8px 0;
-            border-left: 4px solid var(--accent-gold);
-            padding-left: 12px;
-        }
-
-        .section p {
-            margin-bottom: 12px;
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-        }
-
-        /* KPI Cards Grid */
-        .kpi-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 16px;
-            margin-bottom: 24px;
-        }
-
-        .kpi-card {
-            background: var(--card-bg);
-            border-radius: 10px;
-            padding: 20px 24px;
-            box-shadow: 0 1px 6px rgba(0, 0, 0, 0.05);
-            border: 1px solid var(--border);
-            border-left: 5px solid var(--accent-green);
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-
-        .kpi-card:nth-child(2) { border-left-color: var(--accent-gold); }
-        .kpi-card:nth-child(3) { border-left-color: var(--accent-cyan); }
-        .kpi-card:nth-child(4) { border-left-color: var(--accent-purple); }
-        .kpi-card:nth-child(5) { border-left-color: var(--accent-green); }
-        .kpi-card:nth-child(6) { border-left-color: var(--accent-gold); }
-        .kpi-card:nth-child(7) { border-left-color: var(--accent-cyan); }
-        .kpi-card:nth-child(8) { border-left-color: var(--accent-purple); }
-
-        .kpi-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-        }
-
-        .kpi-card .kpi-label {
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-            margin-bottom: 6px;
-            font-weight: 500;
-        }
-
-        .kpi-card .kpi-value {
-            font-size: 1.6rem;
-            font-weight: 700;
-            color: var(--text);
-            margin-bottom: 4px;
-        }
-
-        .kpi-card .kpi-note {
-            font-size: 0.8rem;
-            color: var(--text-secondary);
-        }
-
-        .kpi-card .kpi-trend-up {
-            color: var(--accent-green);
-            font-weight: 600;
-        }
-
-        .kpi-card .kpi-trend-down {
-            color: #e74c3c;
-            font-weight: 600;
-        }
-
-        /* Charts Grid */
-        .charts-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
-            gap: 20px;
-        }
-
-        .chart-container {
-            background: var(--card-bg);
-            border-radius: 10px;
-            padding: 20px;
-            box-shadow: 0 1px 6px rgba(0, 0, 0, 0.05);
-            border: 1px solid var(--border);
-        }
-
-        .chart-container h3 {
-            font-size: 1.05rem;
-            color: var(--text);
-            margin-bottom: 12px;
-            padding: 6px 0;
-            border-left: 4px solid var(--accent-gold);
-            padding-left: 12px;
-        }
-
-        .chart-box {
-            width: 100%;
-            height: 380px;
-        }
-
-        /* Tables */
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 0.9rem;
-            margin-bottom: 16px;
-        }
-
-        table thead th {
-            background: linear-gradient(135deg, var(--accent-green), var(--accent-cyan));
-            color: #ffffff;
-            padding: 12px 10px;
-            text-align: left;
-            font-weight: 600;
-            font-size: 0.85rem;
-            white-space: nowrap;
-        }
-
-        table tbody td {
-            padding: 10px;
-            border-bottom: 1px solid var(--border);
-            vertical-align: top;
-        }
-
-        table tbody tr:nth-child(even) {
-            background: rgba(13, 148, 136, 0.03);
-        }
-
-        table tbody tr:hover {
-            background: rgba(13, 148, 136, 0.08);
-        }
-
-        /* Carrier Table */
-        .carrier-table thead th {
-            background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan));
-        }
-
-        /* Matrix Table */
-        .matrix-table thead th {
-            background: linear-gradient(135deg, var(--accent-gold), #b8860b);
-            font-size: 0.8rem;
-            padding: 8px 6px;
-            text-align: center;
-        }
-
-        .matrix-table tbody td {
-            text-align: center;
-            padding: 8px 6px;
-            font-size: 0.85rem;
-        }
-
-        .matrix-table tbody td:first-child {
-            text-align: left;
-            font-weight: 600;
-        }
-
-        .check {
-            color: var(--accent-green);
-            font-weight: bold;
-        }
-
-        .dash {
-            color: #ccc;
-        }
-
-        /* Company Profiles */
-        .company-profile {
-            background: linear-gradient(135deg, rgba(13, 148, 136, 0.04), rgba(8, 145, 178, 0.04));
-            border-radius: 10px;
-            padding: 20px 24px;
-            margin-bottom: 20px;
-            border: 1px solid var(--border);
-        }
-
-        .company-profile h3 {
-            color: var(--accent-green);
-            border-left-color: var(--accent-green);
-        }
-
-        .company-profile .fact-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 10px;
-            margin: 12px 0;
-        }
-
-        .company-profile .fact-item {
-            background: var(--card-bg);
-            padding: 10px 14px;
-            border-radius: 6px;
-            border: 1px solid var(--border);
-            font-size: 0.9rem;
-        }
-
-        .company-profile .fact-item strong {
-            color: var(--accent-green);
-            display: block;
-            font-size: 0.8rem;
-            margin-bottom: 2px;
-        }
-
-        .data-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 0.88rem;
-            margin: 12px 0;
-        }
-
-        .data-table thead th {
-            background: var(--accent-green);
-            color: #fff;
-            padding: 10px 8px;
-            text-align: center;
-            font-size: 0.82rem;
-        }
-
-        .data-table tbody td {
-            padding: 8px;
-            text-align: center;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .data-table tbody tr:nth-child(even) {
-            background: rgba(13, 148, 136, 0.04);
-        }
-
-        /* Sources */
-        .sources-list {
-            list-style: none;
-            padding: 0;
-        }
-
-        .sources-list li {
-            padding: 6px 0;
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-            border-bottom: 1px dashed var(--border);
-        }
-
-        .sources-list li::before {
-            content: '📎 ';
-            font-size: 0.85rem;
-        }
-
-        .highlight-green {
-            color: var(--accent-green);
-            font-weight: 600;
-        }
-
-        .highlight-gold {
-            color: var(--accent-gold);
-            font-weight: 600;
-        }
-
-        .highlight-cyan {
-            color: var(--accent-cyan);
-            font-weight: 600;
-        }
-
-        .highlight-purple {
-            color: var(--accent-purple);
-            font-weight: 600;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .container {
-                padding: 10px;
-            }
-
-            .header {
-                padding: 24px 16px;
-                border-radius: 10px;
-            }
-
-            .header h1 {
-                font-size: 1.25rem;
-            }
-
-            .section {
-                padding: 16px;
-                border-radius: 8px;
-                margin-bottom: 16px;
-            }
-
-            .section h2 {
-                font-size: 1.15rem;
-            }
-
-            .kpi-grid {
-                grid-template-columns: 1fr;
-                gap: 10px;
-            }
-
-            .kpi-card {
-                padding: 14px 16px;
-            }
-
-            .kpi-card .kpi-value {
-                font-size: 1.3rem;
-            }
-
-            .charts-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .chart-box {
-                height: 280px;
-            }
-
-            .company-profile .fact-grid {
-                grid-template-columns: 1fr 1fr;
-            }
-
-            table {
-                font-size: 0.78rem;
-            }
-
-            table thead th {
-                padding: 8px 6px;
-                font-size: 0.75rem;
-            }
-
-            table tbody td {
-                padding: 6px;
-            }
-
-            .carrier-table,
-            .matrix-table {
-                display: block;
-                overflow-x: auto;
-                white-space: nowrap;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .header h1 {
-                font-size: 1.1rem;
-            }
-
-            .header .subtitle {
-                font-size: 0.8rem;
-            }
-
-            .chart-box {
-                height: 240px;
-            }
-
-            .company-profile .fact-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>中国至东南亚/南亚集装箱航运市场纵览</title>
+<style>
+:root {
+  --bg: #f5f7fa;
+  --card-bg: #ffffff;
+  --text: #1a2332;
+  --text-secondary: #5a6a7e;
+  --text-muted: #8b9aaf;
+  --border: #e2e8f0;
+  --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-lg: 0 4px 12px rgba(0,0,0,0.08), 0 2px 4px rgba(0,0,0,0.04);
+  --radius: 12px;
+  --radius-sm: 8px;
+  --green: #059669;
+  --green-light: #d1fae5;
+  --green-bg: #ecfdf5;
+  --gold: #d97706;
+  --gold-light: #fef3c7;
+  --gold-bg: #fffbeb;
+  --cyan: #0891b2;
+  --cyan-light: #cffafe;
+  --cyan-bg: #ecfeff;
+  --purple: #7c3aed;
+  --purple-light: #ede9fe;
+  --purple-bg: #f5f3ff;
+  --red: #dc2626;
+  --red-light: #fee2e2;
+  --red-bg: #fef2f2;
+  --blue: #2563eb;
+  --blue-light: #dbeafe;
+  --blue-bg: #eff6ff;
+  --max-width: 1400px;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans CJK SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+  background: var(--bg); color: var(--text); line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+.container { max-width: var(--max-width); margin: 0 auto; padding: 20px 24px; }
+
+/* Header */
+.header {
+  background: linear-gradient(135deg, #0f4c3a 0%, #1a6b50 30%, #0d9488 70%, #0891b2 100%);
+  color: #fff; padding: 36px 40px; border-radius: var(--radius);
+  margin-bottom: 24px; position: relative; overflow: hidden;
+}
+.header::before {
+  content: ''; position: absolute; top: -50%; right: -10%; width: 300px; height: 300px;
+  background: radial-gradient(circle, rgba(255,255,255,0.08) 0%, transparent 70%);
+  border-radius: 50%; pointer-events: none;
+}
+.header h1 { font-size: 28px; font-weight: 700; letter-spacing: 0.5px; }
+.header .subtitle { font-size: 14px; opacity: 0.85; margin-top: 6px; }
+.header .date-tag {
+  display: inline-block; margin-top: 12px; background: rgba(255,255,255,0.18);
+  padding: 4px 14px; border-radius: 20px; font-size: 13px; backdrop-filter: blur(8px);
+}
+
+/* KPI Grid */
+.kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px; }
+.kpi-card {
+  background: var(--card-bg); border-radius: var(--radius); padding: 20px 22px;
+  box-shadow: var(--shadow); border: 1px solid var(--border); transition: box-shadow 0.2s;
+}
+.kpi-card:hover { box-shadow: var(--shadow-lg); }
+.kpi-card .kpi-label { font-size: 13px; color: var(--text-secondary); margin-bottom: 6px; font-weight: 500; }
+.kpi-card .kpi-value { font-size: 26px; font-weight: 700; color: var(--text); }
+.kpi-card .kpi-change { font-size: 12px; margin-top: 4px; }
+.kpi-card .kpi-change.up { color: var(--green); }
+.kpi-card .kpi-change.down { color: var(--red); }
+.kpi-card .kpi-change.neutral { color: var(--text-muted); }
+.kpi-card.accent-green { border-left: 3px solid var(--green); }
+.kpi-card.accent-gold { border-left: 3px solid var(--gold); }
+.kpi-card.accent-cyan { border-left: 3px solid var(--cyan); }
+.kpi-card.accent-purple { border-left: 3px solid var(--purple); }
+
+/* Section */
+.section { margin-bottom: 28px; }
+.section-title {
+  font-size: 20px; font-weight: 700; color: var(--text); margin-bottom: 16px;
+  padding-bottom: 10px; border-bottom: 2px solid var(--border);
+  display: flex; align-items: center; gap: 10px;
+}
+.section-title::before {
+  content: ''; display: inline-block; width: 4px; height: 22px;
+  background: linear-gradient(180deg, var(--green), var(--cyan));
+  border-radius: 2px;
+}
+
+/* Chart Grid */
+.chart-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-bottom: 24px; }
+.chart-card {
+  background: var(--card-bg); border-radius: var(--radius); padding: 20px;
+  box-shadow: var(--shadow); border: 1px solid var(--border);
+}
+.chart-card h3 { font-size: 16px; font-weight: 600; color: var(--text); margin-bottom: 8px; }
+.chart-container { width: 100%; height: 380px; }
+
+/* Table */
+.table-wrap { overflow-x: auto; margin-bottom: 20px; }
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+table thead th {
+  background: #f8fafc; color: var(--text-secondary); font-weight: 600; text-align: left;
+  padding: 10px 14px; border-bottom: 2px solid var(--border); white-space: nowrap;
+}
+table tbody td { padding: 10px 14px; border-bottom: 1px solid var(--border); }
+table tbody tr:hover { background: #f8fafc; }
+table tbody td.tag {
+  display: inline-block; margin: 2px; padding: 2px 8px; border-radius: 4px;
+  font-size: 11px; font-weight: 500; background: var(--green-light); color: var(--green);
+}
+.tag-green { background: var(--green-light); color: var(--green); }
+.tag-gold { background: var(--gold-light); color: var(--gold); }
+.tag-cyan { background: var(--cyan-light); color: var(--cyan); }
+.tag-purple { background: var(--purple-light); color: var(--purple); }
+.tag-blue { background: var(--blue-light); color: var(--blue); }
+.tag-red { background: var(--red-light); color: var(--red); }
+
+/* Company Cards */
+.company-card {
+  background: var(--card-bg); border-radius: var(--radius); padding: 24px;
+  box-shadow: var(--shadow); border: 1px solid var(--border); margin-bottom: 20px;
+}
+.company-card h3 { font-size: 18px; font-weight: 700; margin-bottom: 12px; }
+.company-card p { font-size: 14px; color: var(--text-secondary); margin-bottom: 8px; line-height: 1.7; }
+.company-card .highlight {
+  background: var(--green-bg); border-left: 3px solid var(--green);
+  padding: 12px 16px; border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  margin: 12px 0; font-size: 13px; color: var(--text);
+}
+
+/* Risk Grid */
+.risk-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 20px; }
+.risk-card {
+  background: var(--card-bg); border-radius: var(--radius); padding: 18px;
+  box-shadow: var(--shadow); border: 1px solid var(--border);
+}
+.risk-card .risk-level { font-size: 12px; font-weight: 600; margin-bottom: 8px; }
+.risk-card .risk-level.high { color: var(--red); }
+.risk-card .risk-level.medium { color: var(--gold); }
+.risk-card .risk-level.low { color: var(--green); }
+.risk-card h4 { font-size: 14px; font-weight: 600; margin-bottom: 6px; }
+.risk-card p { font-size: 13px; color: var(--text-secondary); }
+
+/* Matrix */
+.matrix-wrap { overflow-x: auto; margin-bottom: 20px; }
+.matrix-table { min-width: 900px; }
+.matrix-table thead th:first-child { min-width: 120px; }
+.matrix-table td.check { text-align: center; color: var(--green); font-weight: 700; }
+.matrix-table td.partial { text-align: center; color: var(--gold); }
+.matrix-table td.none { text-align: center; color: var(--text-muted); }
+
+/* Summary Cards */
+.summary-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-bottom: 20px; }
+.summary-card {
+  background: var(--card-bg); border-radius: var(--radius); padding: 20px;
+  box-shadow: var(--shadow); border: 1px solid var(--border);
+}
+.summary-card h4 { font-size: 15px; font-weight: 600; margin-bottom: 10px; }
+.summary-card p { font-size: 13px; color: var(--text-secondary); line-height: 1.7; }
+
+/* Sources */
+.sources { font-size: 12px; color: var(--text-muted); line-height: 1.8; }
+.sources a { color: var(--cyan); text-decoration: none; }
+.sources a:hover { text-decoration: underline; }
+
+/* Footer */
+.footer {
+  text-align: center; padding: 20px; font-size: 12px; color: var(--text-muted);
+  border-top: 1px solid var(--border); margin-top: 32px;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+  .chart-grid { grid-template-columns: 1fr; }
+  .risk-grid { grid-template-columns: 1fr; }
+  .summary-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 640px) {
+  .container { padding: 12px; }
+  .header { padding: 24px 20px; }
+  .header h1 { font-size: 20px; }
+  .kpi-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .kpi-card { padding: 14px; }
+  .kpi-card .kpi-value { font-size: 20px; }
+  .chart-container { height: 280px; }
+}
+</style>
 </head>
 <body>
-    <div class="container">
+<div class="container">
 
-        <!-- ==================== 1. HEADER ==================== -->
-        <div class="header">
-            <h1>中国至东南亚/南亚集装箱航运市场纵览</h1>
-            <div class="subtitle">数据更新至：2026年8月6日（周四） &mdash; August 6, 2026 (Thursday)</div>
-        </div>
+<!-- Header -->
+<div class="header">
+  <h1>中国至东南亚/南亚集装箱航运市场纵览</h1>
+  <div class="subtitle">China-Southeast Asia / South Asia Container Shipping Market Dashboard</div>
+  <div class="date-tag">数据更新：2026年8月7日（周五）</div>
+</div>
 
-        <!-- ==================== 2. KPI CARDS ==================== -->
-        <div class="kpi-grid">
-            <div class="kpi-card">
-                <div class="kpi-label">SCFI东南亚航线运价指数</div>
-                <div class="kpi-value">3,205.97<span style="font-size:0.8rem;font-weight:400;"> 点</span></div>
-                <div class="kpi-note">7月31日数据 &nbsp; <span class="kpi-trend-up">+4.67% WoW</span></div>
-            </div>
-            <div class="kpi-card">
-                <div class="kpi-label">中国至东南亚/南亚综合运价</div>
-                <div class="kpi-value">$278<span style="font-size:0.8rem;font-weight:400;"> /TEU</span></div>
-                <div class="kpi-note">SCFI东南亚航线参考价</div>
-            </div>
-            <div class="kpi-card">
-                <div class="kpi-label">新加坡港吞吐量</div>
-                <div class="kpi-value">22.74M<span style="font-size:0.8rem;font-weight:400;"> TEU</span></div>
-                <div class="kpi-note">2026年上半年 &nbsp; <span class="kpi-trend-up">+4.7% YoY</span></div>
-            </div>
-            <div class="kpi-card">
-                <div class="kpi-label">舱位利用率</div>
-                <div class="kpi-value">~85-90%</div>
-                <div class="kpi-note">2026年Q3预估值</div>
-            </div>
-            <div class="kpi-card">
-                <div class="kpi-label">平均航程天数</div>
-                <div class="kpi-value">7-14<span style="font-size:0.8rem;font-weight:400;"> 天</span></div>
-                <div class="kpi-note">中国至东南亚主要港口</div>
-            </div>
-            <div class="kpi-card">
-                <div class="kpi-label">货量同比变化</div>
-                <div class="kpi-value"><span class="kpi-trend-up">+16%</span></div>
-                <div class="kpi-note">中国至越南，2025年</div>
-            </div>
-            <div class="kpi-card">
-                <div class="kpi-label">越南进口</div>
-                <div class="kpi-value">2.77M<span style="font-size:0.8rem;font-weight:400;"> TEU</span></div>
-                <div class="kpi-note">2025年，亚洲区域内最大贸易航线</div>
-            </div>
-            <div class="kpi-card">
-                <div class="kpi-label">港口拥堵</div>
-                <div class="kpi-value">3-5<span style="font-size:0.8rem;font-weight:400;"> 天</span></div>
-                <div class="kpi-note">上海/宁波延误；新加坡/巴生3天</div>
-            </div>
-        </div>
+<!-- KPI Cards -->
+<div class="kpi-grid">
+  <div class="kpi-card accent-green">
+    <div class="kpi-label">SCFI东南亚航线（新加坡）</div>
+    <div class="kpi-value">$638/TEU</div>
+    <div class="kpi-change up">▲ +$10 (+1.6%) 周环比</div>
+  </div>
+  <div class="kpi-card accent-gold">
+    <div class="kpi-label">SCFI综合指数</div>
+    <div class="kpi-value">3,205.97</div>
+    <div class="kpi-change up">▲ +143.02 (+4.67%) 周环比</div>
+  </div>
+  <div class="kpi-card accent-cyan">
+    <div class="kpi-label">新加坡港吞吐量（2026H1）</div>
+    <div class="kpi-value">22.74M TEU</div>
+    <div class="kpi-change up">▲ +4.7% 同比</div>
+  </div>
+  <div class="kpi-card accent-purple">
+    <div class="kpi-label">舱位利用率（东南亚线）</div>
+    <div class="kpi-value">~85-92%</div>
+    <div class="kpi-change neutral">泰国方向趋紧，越南平稳</div>
+  </div>
+  <div class="kpi-card accent-green">
+    <div class="kpi-label">中国至东南亚平均航程</div>
+    <div class="kpi-value">5-12天</div>
+    <div class="kpi-change neutral">视目的地港口而定</div>
+  </div>
+  <div class="kpi-card accent-gold">
+    <div class="kpi-label">中越航线货量（2025年）</div>
+    <div class="kpi-value">277万TEU</div>
+    <div class="kpi-change up">▲ +16% 同比</div>
+  </div>
+  <div class="kpi-card accent-cyan">
+    <div class="kpi-label">越南进口增速</div>
+    <div class="kpi-value">+16% YoY</div>
+    <div class="kpi-change up">连续第二年蝉联亚洲双边贸易量之首</div>
+  </div>
+  <div class="kpi-card accent-purple">
+    <div class="kpi-label">亚洲港口拥堵（上海/宁波）</div>
+    <div class="kpi-value">3-5天</div>
+    <div class="kpi-change neutral">新加坡港约3天延误</div>
+  </div>
+</div>
 
-        <!-- ==================== 3. CHARTS SECTION ==================== -->
-        <div class="section">
-            <h2>航线运价与货量走势</h2>
-            <div class="charts-grid">
-                <div class="chart-container">
-                    <h3>东南亚/南亚航线运价指数走势</h3>
-                    <div class="chart-box" id="chart_sea_index"></div>
-                </div>
-                <div class="chart-container">
-                    <h3>中国至主要目的地综合运价对比</h3>
-                    <div class="chart-box" id="chart_destination_rates"></div>
-                </div>
-                <div class="chart-container">
-                    <h3>中国至东南亚/南亚月度货量</h3>
-                    <div class="chart-box" id="chart_monthly_volume"></div>
-                </div>
-                <div class="chart-container">
-                    <h3>市场份额分布</h3>
-                    <div class="chart-box" id="chart_market_share"></div>
-                </div>
-            </div>
-        </div>
-
-        <!-- ==================== 4. PIL / 太平船务 SECTION ==================== -->
-        <div class="section">
-            <h2>PIL / 太平船务</h2>
-            <div class="company-profile">
-                <h3>太平船务 (Pacific International Lines)</h3>
-                <p>
-                    PIL（太平船务）总部位于<span class="highlight-green">新加坡</span>，是东南亚最大的本土集装箱航运公司之一。
-                    公司深耕新兴市场<span class="highlight-green">五十余年</span>，在东南亚、南亚、非洲和中东地区建立了强大的航线网络和品牌影响力。
-                    PIL是亚洲至非洲航线上的主要承运人之一，也是连接中国市场与东南亚、南亚地区的重要桥梁。
-                </p>
-                <p>
-                    PIL在东南亚实现了<span class="highlight-green">全面覆盖</span>，包括越南、泰国、印度尼西亚、马来西亚、菲律宾、新加坡、缅甸、柬埔寨等所有主要贸易国家。
-                    在南亚市场，PIL更是<span class="highlight-gold">市场领导者</span>之一，在印度、斯里兰卡、孟加拉国等国家拥有深厚的市场根基。
-                    公司以<span class="highlight-cyan">非洲-亚洲专线</span>为特色优势，形成了差异化竞争壁垒。
-                </p>
-                <div class="fact-grid">
-                    <div class="fact-item">
-                        <strong>成立时间</strong>
-                        1967年
-                    </div>
-                    <div class="fact-item">
-                        <strong>总部</strong>
-                        新加坡
-                    </div>
-                    <div class="fact-item">
-                        <strong>船队规模</strong>
-                        ~100艘集装箱船
-                    </div>
-                    <div class="fact-item">
-                        <strong>全球覆盖</strong>
-                        90+港口
-                    </div>
-                    <div class="fact-item">
-                        <strong>核心市场</strong>
-                        东南亚、南亚、非洲、中东
-                    </div>
-                    <div class="fact-item">
-                        <strong>特色优势</strong>
-                        非洲-亚洲专线、新兴市场深耕
-                    </div>
-                </div>
-                <h4 style="margin-top:16px;color:var(--accent-cyan);">新航线服务</h4>
-                <table class="data-table">
-                    <thead>
-                        <tr>
-                            <th>服务代码</th>
-                            <th>航线名称</th>
-                            <th>开通时间</th>
-                            <th>主要挂靠港</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>ITS</strong></td>
-                            <td>Indonesia Thailand Service</td>
-                            <td>2026年9月</td>
-                            <td>新加坡 - 雅加达 - 泗水 - 曼谷 - 林查班</td>
-                        </tr>
-                        <tr>
-                            <td><strong>KCI</strong></td>
-                            <td>Korea China Indonesia</td>
-                            <td>2025年10月</td>
-                            <td>釜山 - 青岛 - 上海 - 雅加达 - 泗水</td>
-                        </tr>
-                        <tr>
-                            <td><strong>NCI</strong></td>
-                            <td>North China Indonesia</td>
-                            <td>2025年</td>
-                            <td>天津 - 大连 - 青岛 - 雅加达 - 泗水 - 新加坡</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-        <!-- ==================== 5. SITC / 海丰国际 SECTION ==================== -->
-        <div class="section">
-            <h2>SITC / 海丰国际</h2>
-            <div class="company-profile">
-                <h3>海丰国际控股有限公司 (SITC International, HKEX: 01308)</h3>
-                <p>
-                    SITC（海丰国际）是<span class="highlight-green">亚洲区域内集装箱航运的绝对领导者</span>，也是全球最大的亚洲区内集装箱航运公司。
-                    公司专注于亚洲市场，以高频率、高密度、高准班率的服务模式在亚洲区域内建立了无可撼动的竞争壁垒。
-                    凭借<span class="highlight-gold">88%的自有船队比例</span>和精细化的运营管理体系，SITC在成本控制和运营效率方面处于行业领先地位。
-                </p>
-                <div class="fact-grid">
-                    <div class="fact-item">
-                        <strong>船队规模</strong>
-                        119艘（自有99艘）
-                    </div>
-                    <div class="fact-item">
-                        <strong>自有船比例</strong>
-                        88%
-                    </div>
-                    <div class="fact-item">
-                        <strong>贸易航线</strong>
-                        76条
-                    </div>
-                    <div class="fact-item">
-                        <strong>年货运量</strong>
-                        385万 TEU
-                    </div>
-                    <div class="fact-item">
-                        <strong>全球排名</strong>
-                        第14位
-                    </div>
-                    <div class="fact-item">
-                        <strong>亚洲区内市场份额</strong>
-                        ~8%
-                    </div>
-                    <div class="fact-item">
-                        <strong>2025年营收</strong>
-                        $34.1亿
-                    </div>
-                    <div class="fact-item">
-                        <strong>2025年净利润</strong>
-                        $12.2亿
-                    </div>
-                    <div class="fact-item">
-                        <strong>覆盖国家</strong>
-                        15个国家
-                    </div>
-                    <div class="fact-item">
-                        <strong>覆盖港口</strong>
-                        82个港口
-                    </div>
-                    <div class="fact-item">
-                        <strong>在建船舶</strong>
-                        21艘
-                    </div>
-                    <div class="fact-item">
-                        <strong>物流园区</strong>
-                        多个物流园区布局
-                    </div>
-                </div>
-                <p style="margin-top:16px;">
-                    <strong>东南亚收入占比持续提升：</strong>SITC的东南亚市场收入占比从<span class="highlight-green">2013年的11%</span>增长至<span class="highlight-gold">2025年的29%</span>，
-                    反映出公司在东南亚市场的战略布局和持续投入取得了显著成效。东南亚已成为SITC除中国本土外最重要的增长引擎。
-                </p>
-                <p>
-                    SITC以<span class="highlight-cyan">高频率、高密度</span>的航线网络著称，在亚洲区内主要港口之间提供每周多次航班服务，
-                    配合自有船队和自有码头设施，实现了从船舶运营到港口装卸的全链条效率优化。
-                </p>
-            </div>
-        </div>
-
-        <!-- ==================== 6. COSCO洋浦国际枢纽港战略 ==================== -->
-        <div class="section">
-            <h2>COSCO洋浦国际枢纽港战略</h2>
-            <div class="company-profile">
-                <h3>中远海运洋浦国际集装箱枢纽港</h3>
-                <p>
-                    COSCO SHIPPING以<span class="highlight-green">海南洋浦港</span>为核心打造的西部陆海新通道国际集装箱枢纽港战略，
-                    是近年来中国航运业最具战略意义的港口布局之一。洋浦港地处北部湾中心位置，连接中国西南与东南亚、
-                    南亚市场，是<span class="highlight-gold">RCEP框架下</span>的重要物流节点。
-                </p>
-                <p>
-                    洋浦港目前开通<span class="highlight-green">17条外贸航线</span>，其中<span class="highlight-cyan">2025年新增10条</span>，
-                    航线网络覆盖东南亚主要港口及南亚、中东、大洋洲等地区。关键航线包括：
-                </p>
-                <ul style="margin:12px 0;padding-left:20px;color:var(--text-secondary);line-height:2;">
-                    <li><strong>SEI2航线：</strong>钦州 - 洋浦 - 海防 - 新加坡 - 蒙德拉（印度），打通中国-东盟-南亚通道</li>
-                    <li><strong>YBX航线：</strong>洋浦至东南亚主力航线</li>
-                    <li><strong>AWE4美东航线升级：</strong>洋浦接入跨太平洋网络</li>
-                    <li><strong>CPV航线：</strong>China-Pacific-Vancouver，连接中国与北美西海岸</li>
-                    <li><strong>CI1/YCX南亚直航：</strong>中国至南亚直达航线</li>
-                    <li><strong>内外贸同船运输：</strong>国内贸易与外贸同船运输模式创新</li>
-                </ul>
-                <h4 style="margin-top:16px;color:var(--accent-cyan);">洋浦港核心数据</h4>
-                <table class="data-table">
-                    <thead>
-                        <tr>
-                            <th>指标</th>
-                            <th>2025年</th>
-                            <th>同比变化</th>
-                            <th>2026年Q1</th>
-                            <th>备注</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>集装箱吞吐量</strong></td>
-                            <td>331.1万 TEU</td>
-                            <td class="kpi-trend-up">+65%</td>
-                            <td class="kpi-trend-up">+94.4%</td>
-                            <td>高速增长</td>
-                        </tr>
-                        <tr>
-                            <td><strong>货物吞吐量</strong></td>
-                            <td>8,594.8万吨</td>
-                            <td>—</td>
-                            <td>—</td>
-                            <td>—</td>
-                        </tr>
-                        <tr>
-                            <td><strong>泊位数量</strong></td>
-                            <td>41个（万吨级以上）</td>
-                            <td>—</td>
-                            <td>—</td>
-                            <td>含深水泊位</td>
-                        </tr>
-                        <tr>
-                            <td><strong>全国排名</strong></td>
-                            <td>第18位</td>
-                            <td>从2021年第26位上升</td>
-                            <td>—</td>
-                            <td>排名持续攀升</td>
-                        </tr>
-                        <tr>
-                            <td><strong>外贸航线</strong></td>
-                            <td>17条</td>
-                            <td>+10条（2025年新增）</td>
-                            <td>—</td>
-                            <td>覆盖东南亚/南亚</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-        <!-- ==================== 7. SHIPPING COMPANY OVERVIEW TABLE ==================== -->
-        <div class="section">
-            <h2>主要船公司概览</h2>
-            <div style="overflow-x:auto;">
-                <table class="carrier-table">
-                    <thead>
-                        <tr>
-                            <th>公司</th>
-                            <th>联盟</th>
-                            <th>东南亚航线</th>
-                            <th>南亚航线</th>
-                            <th>航线数量</th>
-                            <th>特色优势</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>PIL 太平船务</strong></td>
-                            <td>独立/区域合作</td>
-                            <td>全面覆盖</td>
-                            <td>印度、斯里兰卡、孟加拉</td>
-                            <td>60+</td>
-                            <td>非洲-亚洲专线，新兴市场深耕</td>
-                        </tr>
-                        <tr>
-                            <td><strong>COSCO 中远海运</strong></td>
-                            <td>海洋联盟</td>
-                            <td>全面覆盖</td>
-                            <td>印度、巴基斯坦、斯里兰卡</td>
-                            <td>80+</td>
-                            <td>洋浦枢纽港，全球网络，国企资源</td>
-                        </tr>
-                        <tr>
-                            <td><strong>CMA CGM 达飞</strong></td>
-                            <td>海洋联盟</td>
-                            <td>全面覆盖</td>
-                            <td>印度、巴基斯坦、斯里兰卡</td>
-                            <td>70+</td>
-                            <td>法国总部，全球网络，CNC区域品牌</td>
-                        </tr>
-                        <tr>
-                            <td><strong>MSC 地中海航运</strong></td>
-                            <td>独立/2M(已退出)</td>
-                            <td>全面覆盖</td>
-                            <td>印度、巴基斯坦、斯里兰卡</td>
-                            <td>75+</td>
-                            <td>全球最大船队，独立运营灵活</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Maersk 马士基</strong></td>
-                            <td>Gemini(新)</td>
-                            <td>全面覆盖</td>
-                            <td>印度、斯里兰卡、孟加拉</td>
-                            <td>65+</td>
-                            <td>全球网络，端到端物流，Sealand区域品牌</td>
-                        </tr>
-                        <tr>
-                            <td><strong>ONE 海洋网联</strong></td>
-                            <td>THE联盟</td>
-                            <td>主要港口覆盖</td>
-                            <td>印度、斯里兰卡</td>
-                            <td>40+</td>
-                            <td>日本三大航企合并，亚洲深耕</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Evergreen 长荣</strong></td>
-                            <td>海洋联盟</td>
-                            <td>全面覆盖</td>
-                            <td>印度、斯里兰卡</td>
-                            <td>50+</td>
-                            <td>台湾总部，东南亚网络密集</td>
-                        </tr>
-                        <tr>
-                            <td><strong>OOCL 东方海外</strong></td>
-                            <td>海洋联盟</td>
-                            <td>主要港口覆盖</td>
-                            <td>印度、斯里兰卡</td>
-                            <td>35+</td>
-                            <td>COSCO子公司，信息技术领先</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Yang Ming 阳明</strong></td>
-                            <td>THE联盟</td>
-                            <td>主要港口覆盖</td>
-                            <td>印度、斯里兰卡</td>
-                            <td>30+</td>
-                            <td>台湾总部，亚洲网络</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Wan Hai 万海</strong></td>
-                            <td>独立</td>
-                            <td>全面覆盖</td>
-                            <td>印度、斯里兰卡</td>
-                            <td>55+</td>
-                            <td>亚洲区内专家，台湾总部</td>
-                        </tr>
-                        <tr>
-                            <td><strong>SITC 海丰国际</strong></td>
-                            <td>独立</td>
-                            <td>全面覆盖(76条)</td>
-                            <td>印度、斯里兰卡、孟加拉</td>
-                            <td>76</td>
-                            <td>亚洲区内绝对领导者，88%自有船</td>
-                        </tr>
-                        <tr>
-                            <td><strong>RCL 宏海箱运</strong></td>
-                            <td>独立</td>
-                            <td>全面覆盖</td>
-                            <td>印度、斯里兰卡、孟加拉</td>
-                            <td>45+</td>
-                            <td>泰国总部，东南亚区域专家</td>
-                        </tr>
-                        <tr>
-                            <td><strong>X-Press Feeders</strong></td>
-                            <td>独立</td>
-                            <td>全面覆盖</td>
-                            <td>印度、斯里兰卡、孟加拉</td>
-                            <td>50+</td>
-                            <td>全球最大支线运营商，新加坡总部</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-        <!-- ==================== 8. SERVICE COVERAGE MATRIX ==================== -->
-        <div class="section">
-            <h2>航线服务覆盖矩阵</h2>
-            <div style="overflow-x:auto;">
-                <table class="matrix-table">
-                    <thead>
-                        <tr>
-                            <th>公司</th>
-                            <th>越南</th>
-                            <th>泰国</th>
-                            <th>印尼</th>
-                            <th>马来西亚</th>
-                            <th>菲律宾</th>
-                            <th>新加坡</th>
-                            <th>印度</th>
-                            <th>斯里兰卡</th>
-                            <th>孟加拉</th>
-                            <th>缅甸</th>
-                            <th>柬埔寨</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>PIL</td>
-                            <td class="check">&#10003;</td>
-                            <td class="check">&#10003;</td>
-                            <td class="check">&#10003;</td>
-                            <td class="check">&#10003;</td>
-                            <td class="check">&#10003;</td>
-                            <td class="check">&#10003;</td>
-                            <td class="check">&#10003;</td>
-                            <td class="check">&#10003;</td>
-                            <td class="check">&#10003;</td>
-                            <td class="check">&#10003;</td>
-                            <td class="check">&#10003;</td>
-                        </tr>
-                        <tr>
-                            <td>COSCO</td>
-                            <td class="check">&#10003;</td>
-                            <td class="check">&#10003;</td>
-                            <td class="check">&#10003;</td>
-                            <td class="check">&#10003;</td>
-                            <td class="check">&#10003;</td>
-                            <td class="check">&#10003;</td>
-                            <td class="check">&#10003;</td>
-                            <td class="check">&#10003;</td>
-                            <td class="check">&#10003;</td>
-                            <td class="check">&#10003;</td>
-                            <td class="check">&#10003;</td>
-                        </tr>
-                        <tr>
-                            <td>CMA CGM</td>
-                            <td class="check">&#10003;</td>
-                            <td class="check">&#10003;</td>
-                            <td class="check">&#10003;</td>
-                            <td class="check">&#10003;</td>
-                            <td class="check">&#10003;</td>
-                            <td class="check">&#10003;</td>
-                            <td class="check">&#10003;</td>
-                            <td class="check">&#10003;</td>
-                            <td class="check">&#10003;</td>
-                            <td class="check">&#10003;</td>
-                            <td class="check">&#10003;</td>
-                        </tr>
-                        <tr>
-                            <td>MSC</td>
-                            <td class="check">&#10003;</td>
-                            <td class="check">&#10003;</td>
-                            <td class="check">&#10003;</td>
-                            <td class="check">&#10003;</td>
-                            <td class="check">&#10003;</td>
-                            <td class="check">&#10003;</td>
-                            <td class="check">&#10003;</td>
-                            <td class="check">&#10003;</td>
-                            <td class="check">&#10003;</td>
-                            <td class="check">&#10003;</td>
-                            <td class="check">&#10003;</td>
-                        </tr>
-                        <tr>
-                            <td>Maersk</td>
-                            <td class="check">&#10003;</td>
-                            <td class="check">&#10003;</td>
-                            <td class="check">&#10003;</td>
-                            <td class="check">&#10003;</td>
-                            <td class="check">&#10003;</td>
-                            <td class="check">&#10003;</td>
-                            <td class="check">&#10003;</td>
-                            <td class="check">&#10003;</td>
-                            <td class="check">&#10003;</td>
-                            <td class="check">&#10003;</td>
-                            <td class="check">&#10003;</td>
-                        </tr>
-                        <tr>
-                            <td>ONE</td>
-                            <td class="check">&#10003;</td>
-                            <td class="check">&#10003;</td>
-                            <td class="check">&#10003;</td>
-                            <td class="check">&#10003;</td>
-                            <td class="check">&#10003;</td>
-                            <td class="check">&#10003;</td>
-                            <td class="check">&#10003;</td>
-                            <td class="check">&#10003;</td>
-                            <td class="dash">&#8212;</td>
-                            <td class="dash">&#8212;</td>
-                            <td class="dash">&#8212;</td>
-                        </tr>
-                        <tr>
-                            <td>Evergreen</td>
-                            <td class="check">&#10003;</td>
-                            <td class="check">&#10003;</td>
-                            <td class="check">&#10003;</td>
-                            <td class="check">&#10003;</td>
-                            <td class="check">&#10003;</td>
-                            <td class="check">&#10003;</td>
-                            <td class="check">&#10003;</td>
-                            <td class="check">&#10003;</td>
-                            <td class="dash">&#8212;</td>
-                            <td class="check">&#10003;</td>
-                            <td class="check">&#10003;</td>
-                        </tr>
-                        <tr>
-                            <td>OOCL</td>
-                            <td class="check">&#10003;</td>
-                            <td class="check">&#10003;</td>
-                            <td class="check">&#10003;</td>
-                            <td class="check">&#10003;</td>
-                            <td class="check">&#10003;</td>
-                            <td class="check">&#10003;</td>
-                            <td class="check">&#10003;</td>
-                            <td class="check">&#10003;</td>
-                            <td class="dash">&#8212;</td>
-                            <td class="dash">&#8212;</td>
-                            <td class="dash">&#8212;</td>
-                        </tr>
-                        <tr>
-                            <td>Yang Ming</td>
-                            <td class="check">&#10003;</td>
-                            <td class="check">&#10003;</td>
-                            <td class="check">&#10003;</td>
-                            <td class="check">&#10003;</td>
-                            <td class="check">&#10003;</td>
-                            <td class="check">&#10003;</td>
-                            <td class="check">&#10003;</td>
-                            <td class="check">&#10003;</td>
-                            <td class="dash">&#8212;</td>
-                            <td class="dash">&#8212;</td>
-                            <td class="dash">&#8212;</td>
-                        </tr>
-                        <tr>
-                            <td>Wan Hai</td>
-                            <td class="check">&#10003;</td>
-                            <td class="check">&#10003;</td>
-                            <td class="check">&#10003;</td>
-                            <td class="check">&#10003;</td>
-                            <td class="check">&#10003;</td>
-                            <td class="check">&#10003;</td>
-                            <td class="check">&#10003;</td>
-                            <td class="check">&#10003;</td>
-                            <td class="dash">&#8212;</td>
-                            <td class="check">&#10003;</td>
-                            <td class="check">&#10003;</td>
-                        </tr>
-                        <tr>
-                            <td>SITC</td>
-                            <td class="check">&#10003;</td>
-                            <td class="check">&#10003;</td>
-                            <td class="check">&#10003;</td>
-                            <td class="check">&#10003;</td>
-                            <td class="check">&#10003;</td>
-                            <td class="check">&#10003;</td>
-                            <td class="check">&#10003;</td>
-                            <td class="check">&#10003;</td>
-                            <td class="check">&#10003;</td>
-                            <td class="check">&#10003;</td>
-                            <td class="check">&#10003;</td>
-                        </tr>
-                        <tr>
-                            <td>RCL</td>
-                            <td class="check">&#10003;</td>
-                            <td class="check">&#10003;</td>
-                            <td class="check">&#10003;</td>
-                            <td class="check">&#10003;</td>
-                            <td class="check">&#10003;</td>
-                            <td class="check">&#10003;</td>
-                            <td class="check">&#10003;</td>
-                            <td class="check">&#10003;</td>
-                            <td class="check">&#10003;</td>
-                            <td class="check">&#10003;</td>
-                            <td class="check">&#10003;</td>
-                        </tr>
-                        <tr>
-                            <td>X-Press Feeders</td>
-                            <td class="check">&#10003;</td>
-                            <td class="check">&#10003;</td>
-                            <td class="check">&#10003;</td>
-                            <td class="check">&#10003;</td>
-                            <td class="check">&#10003;</td>
-                            <td class="check">&#10003;</td>
-                            <td class="check">&#10003;</td>
-                            <td class="check">&#10003;</td>
-                            <td class="check">&#10003;</td>
-                            <td class="check">&#10003;</td>
-                            <td class="check">&#10003;</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-        <!-- ==================== 9. SURCHARGE COMPARISON TABLE ==================== -->
-        <div class="section">
-            <h2>附加费对比</h2>
-            <div style="overflow-x:auto;">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>船公司</th>
-                            <th>PSS 旺季附加费</th>
-                            <th>BKC 燃油附加费</th>
-                            <th>FAK 均一运费率</th>
-                            <th>备注</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>COSCO</strong></td>
-                            <td>$150-250/TEU</td>
-                            <td>按季度调整</td>
-                            <td>东南亚 $200-400/TEU</td>
-                            <td>旺季7-9月实施</td>
-                        </tr>
-                        <tr>
-                            <td><strong>CMA CGM</strong></td>
-                            <td>$200-300/TEU</td>
-                            <td>浮动制</td>
-                            <td>东南亚 $250-450/TEU</td>
-                            <td>PSS按月度调整</td>
-                        </tr>
-                        <tr>
-                            <td><strong>MSC</strong></td>
-                            <td>$180-280/TEU</td>
-                            <td>月度调整</td>
-                            <td>东南亚 $220-420/TEU</td>
-                            <td>灵活定价策略</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Maersk</strong></td>
-                            <td>$200-350/TEU</td>
-                            <td>EFF环境燃油费</td>
-                            <td>东南亚 $250-480/TEU</td>
-                            <td>含EFF环保附加费</td>
-                        </tr>
-                        <tr>
-                            <td><strong>ONE</strong></td>
-                            <td>$150-250/TEU</td>
-                            <td>月度浮动</td>
-                            <td>东南亚 $200-380/TEU</td>
-                            <td>标准PSS体系</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Evergreen</strong></td>
-                            <td>$180-280/TEU</td>
-                            <td>季度调整</td>
-                            <td>东南亚 $220-400/TEU</td>
-                            <td>—</td>
-                        </tr>
-                        <tr>
-                            <td><strong>OOCL</strong></td>
-                            <td>$150-250/TEU</td>
-                            <td>月度调整</td>
-                            <td>东南亚 $200-380/TEU</td>
-                            <td>COSCO体系协同</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Yang Ming</strong></td>
-                            <td>$150-250/TEU</td>
-                            <td>季度浮动</td>
-                            <td>东南亚 $200-380/TEU</td>
-                            <td>—</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Wan Hai</strong></td>
-                            <td>$100-200/TEU</td>
-                            <td>月度浮动</td>
-                            <td>东南亚 $180-350/TEU</td>
-                            <td>区域船公司定价偏低</td>
-                        </tr>
-                        <tr>
-                            <td><strong>SITC</strong></td>
-                            <td>$80-180/TEU</td>
-                            <td>含在运价中</td>
-                            <td>东南亚 $150-300/TEU</td>
-                            <td>亚洲区内定价优势明显</td>
-                        </tr>
-                        <tr>
-                            <td><strong>PIL</strong></td>
-                            <td>$100-200/TEU</td>
-                            <td>月度调整</td>
-                            <td>东南亚 $180-350/TEU</td>
-                            <td>区域竞争力强</td>
-                        </tr>
-                        <tr>
-                            <td><strong>RCL</strong></td>
-                            <td>$80-150/TEU</td>
-                            <td>含在运价中</td>
-                            <td>东南亚 $150-300/TEU</td>
-                            <td>东南亚区域定价最低</td>
-                        </tr>
-                        <tr>
-                            <td><strong>X-Press Feeders</strong></td>
-                            <td>$80-150/TEU</td>
-                            <td>月度调整</td>
-                            <td>东南亚 $150-280/TEU</td>
-                            <td>支线运营成本优势</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <p style="font-size:0.85rem;color:var(--text-secondary);margin-top:8px;">
-                <strong>说明：</strong>PSS（Peak Season Surcharge）旺季附加费通常在每年7-9月实施，具体费率根据航线供需情况动态调整。
-                BKC（Bunker Charge）燃油附加费随国际油价波动，各船公司调整频率不同。
-                FAK（Freight All Kinds）均一运费率为基础海运费参考价，实际成交价因货量、合约等因素有所差异。
-                以上数据为2026年Q3市场参考值。
-            </p>
-        </div>
-
-        <!-- ==================== 10. RISK FACTORS TABLE ==================== -->
-        <div class="section">
-            <h2>风险因素分析</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th style="width:20%;">风险因素</th>
-                        <th style="width:10%;">风险等级</th>
-                        <th style="width:40%;">影响分析</th>
-                        <th style="width:30%;">应对策略</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><strong>红海局势扰动</strong></td>
-                        <td><span class="highlight-gold">中高</span></td>
-                        <td>红海/苏伊士运河通行受限，部分亚欧航线绕行好望角，间接影响亚洲区内可用运力分配。航程延长导致运力紧张，推高运价。</td>
-                        <td>关注地缘政治动态，灵活调整运力部署；与船公司保持密切沟通</td>
-                    </tr>
-                    <tr>
-                        <td><strong>港口拥堵</strong></td>
-                        <td><span class="highlight-gold">中高</span></td>
-                        <td>上海、宁波等中国主要出口港拥堵3-5天，新加坡转运港拥堵3天，影响船舶周转效率和准班率。</td>
-                        <td>提前预订舱位，预留缓冲时间；考虑替代港口或航线</td>
-                    </tr>
-                    <tr>
-                        <td><strong>关税政策变化</strong></td>
-                        <td><span class="highlight-gold">中高</span></td>
-                        <td>中美贸易摩擦升级可能波及东南亚转口贸易；RCEP关税优惠调整影响区域贸易流向。</td>
-                        <td>多元化供应链布局，关注政策动态</td>
-                    </tr>
-                    <tr>
-                        <td><strong>燃油价格波动</strong></td>
-                        <td><span class="highlight-green">中</span></td>
-                        <td>国际油价波动直接影响船公司燃油成本，进而传导至BKC燃油附加费调整。</td>
-                        <td>关注油价走势，在合同中明确燃油附加费调整机制</td>
-                    </tr>
-                    <tr>
-                        <td><strong>新造船交付压力</strong></td>
-                        <td><span class="highlight-green">中</span></td>
-                        <td>2026-2027年大量新造船集中交付，可能导致运力过剩、运价下行压力增大。</td>
-                        <td>关注运力供需平衡，灵活签订长期/短期合约</td>
-                    </tr>
-                    <tr>
-                        <td><strong>季风季节影响</strong></td>
-                        <td><span class="highlight-green">中低</span></td>
-                        <td>每年6-11月为南亚/东南亚季风季节，孟加拉湾和南海区域恶劣天气可能导致港口作业中断和船期延误。</td>
-                        <td>季节性调整物流计划，预留额外运输时间</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
-        <!-- ==================== 11. MONTHLY CORE DATA TABLE ==================== -->
-        <div class="section">
-            <h2>月度核心数据 (2025年1月-10月)</h2>
-            <div style="overflow-x:auto;">
-                <table class="data-table">
-                    <thead>
-                        <tr>
-                            <th>月份</th>
-                            <th>SCFI东南亚指数</th>
-                            <th>环比变化</th>
-                            <th>CCFI东南亚指数</th>
-                            <th>环比变化</th>
-                            <th>中国-东南亚货量(万TEU)</th>
-                            <th>备注</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>2025年1月</strong></td>
-                            <td>2,458.32</td>
-                            <td>+3.2%</td>
-                            <td>1,892.45</td>
-                            <td>+2.8%</td>
-                            <td>~185</td>
-                            <td>春节前出货高峰</td>
-                        </tr>
-                        <tr>
-                            <td><strong>2025年2月</strong></td>
-                            <td>2,312.67</td>
-                            <td>-5.9%</td>
-                            <td>1,798.32</td>
-                            <td>-5.0%</td>
-                            <td>~142</td>
-                            <td>春节假期影响</td>
-                        </tr>
-                        <tr>
-                            <td><strong>2025年3月</strong></td>
-                            <td>2,501.89</td>
-                            <td>+8.2%</td>
-                            <td>1,923.56</td>
-                            <td>+7.0%</td>
-                            <td>~195</td>
-                            <td>节后复工反弹</td>
-                        </tr>
-                        <tr>
-                            <td><strong>2025年4月</strong></td>
-                            <td>2,623.45</td>
-                            <td>+4.9%</td>
-                            <td>2,015.78</td>
-                            <td>+4.8%</td>
-                            <td>~205</td>
-                            <td>春季出货旺季</td>
-                        </tr>
-                        <tr>
-                            <td><strong>2025年5月</strong></td>
-                            <td>2,745.12</td>
-                            <td>+4.6%</td>
-                            <td>2,108.34</td>
-                            <td>+4.6%</td>
-                            <td>~210</td>
-                            <td>持续旺季</td>
-                        </tr>
-                        <tr>
-                            <td><strong>2025年6月</strong></td>
-                            <td>2,867.33</td>
-                            <td>+4.5%</td>
-                            <td>2,201.56</td>
-                            <td>+4.4%</td>
-                            <td>~218</td>
-                            <td>旺季高位</td>
-                        </tr>
-                        <tr>
-                            <td><strong>2025年7月</strong></td>
-                            <td>3,062.78</td>
-                            <td>+6.8%</td>
-                            <td>2,345.67</td>
-                            <td>+6.5%</td>
-                            <td>~228</td>
-                            <td>PSS旺季附加费实施</td>
-                        </tr>
-                        <tr>
-                            <td><strong>2025年8月</strong></td>
-                            <td>3,156.42</td>
-                            <td>+3.1%</td>
-                            <td>2,412.89</td>
-                            <td>+2.9%</td>
-                            <td>~232</td>
-                            <td>旺季延续</td>
-                        </tr>
-                        <tr>
-                            <td><strong>2025年9月</strong></td>
-                            <td>3,098.76</td>
-                            <td>-1.8%</td>
-                            <td>2,378.45</td>
-                            <td>-1.4%</td>
-                            <td>~225</td>
-                            <td>旺季尾声</td>
-                        </tr>
-                        <tr>
-                            <td><strong>2025年10月</strong></td>
-                            <td>2,985.34</td>
-                            <td>-3.7%</td>
-                            <td>2,301.23</td>
-                            <td>-3.2%</td>
-                            <td>~215</td>
-                            <td>淡季回调</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <p style="font-size:0.85rem;color:var(--text-secondary);margin-top:8px;">
-                <strong>数据来源：</strong>上海航运交易所(SSE) SCFI/CCFI指数，货量数据为行业估算值。
-                2025年全年SCFI东南亚指数均值约2,781点，同比2024年上涨约12-15%。
-            </p>
-        </div>
-
-        <!-- ==================== 12. PORT DELAY TABLE ==================== -->
-        <div class="section">
-            <h2>主要港口延误情况</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>港口</th>
-                        <th>国家/地区</th>
-                        <th>平均延误</th>
-                        <th>趋势</th>
-                        <th>主要原因</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><strong>上海港</strong></td>
-                        <td>中国</td>
-                        <td><span class="highlight-gold">3-5天</span></td>
-                        <td>稳定</td>
-                        <td>出口货量集中，码头作业繁忙</td>
-                    </tr>
-                    <tr>
-                        <td><strong>宁波舟山港</strong></td>
-                        <td>中国</td>
-                        <td><span class="highlight-gold">3-5天</span></td>
-                        <td>稳定</td>
-                        <td>台风季节影响，码头拥堵</td>
-                    </tr>
-                    <tr>
-                        <td><strong>新加坡港</strong></td>
-                        <td>新加坡</td>
-                        <td><span class="highlight-cyan">3天</span></td>
-                        <td>缓解中</td>
-                        <td>转运枢纽拥堵，红海绕行导致船舶集中到港</td>
-                    </tr>
-                    <tr>
-                        <td><strong>巴生港</strong></td>
-                        <td>马来西亚</td>
-                        <td><span class="highlight-cyan">3天</span></td>
-                        <td>稳定</td>
-                        <td>转运量增加，码头处理能力饱和</td>
-                    </tr>
-                    <tr>
-                        <td><strong>丹戎帕拉帕斯港</strong></td>
-                        <td>马来西亚</td>
-                        <td>2-3天</td>
-                        <td>稳定</td>
-                        <td>区域转运需求增长</td>
-                    </tr>
-                    <tr>
-                        <td><strong>林查班港</strong></td>
-                        <td>泰国</td>
-                        <td>1-2天</td>
-                        <td>良好</td>
-                        <td>码头作业效率较高</td>
-                    </tr>
-                    <tr>
-                        <td><strong>胡志明港</strong></td>
-                        <td>越南</td>
-                        <td>1-2天</td>
-                        <td>良好</td>
-                        <td>航道水深限制，部分船舶需候潮</td>
-                    </tr>
-                    <tr>
-                        <td><strong>雅加达港</strong></td>
-                        <td>印度尼西亚</td>
-                        <td>2-3天</td>
-                        <td>稳定</td>
-                        <td>码头基础设施限制，进口货量增长</td>
-                    </tr>
-                </tbody>
-            </table>
-            <p style="font-size:0.85rem;color:var(--text-secondary);margin-top:8px;">
-                <strong>说明：</strong>以上延误数据为2026年Q3市场参考值，实际延误时间可能因天气、节假日、突发情况等因素变化。
-            </p>
-        </div>
-
-        <!-- ==================== 13. CHINA MAJOR PORTS EXPORT TO SE/SA OVERVIEW ==================== -->
-        <div class="section">
-            <h2>中国主要港口对东南亚/南亚出口概览</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>港口</th>
-                        <th>区域定位</th>
-                        <th>主要东南亚/南亚航线</th>
-                        <th>出口特征</th>
-                        <th>优势货类</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><strong>上海港</strong></td>
-                        <td>全球最大集装箱港，中国出口第一大港</td>
-                        <td>覆盖东南亚/南亚全区域，航线密度最高</td>
-                        <td>出口货量最大，航线网络最全，班次最密集</td>
-                        <td>电子产品、机械设备、纺织品、化工品</td>
-                    </tr>
-                    <tr>
-                        <td><strong>宁波舟山港</strong></td>
-                        <td>全球第三大集装箱港，货物吞吐量全球第一</td>
-                        <td>东南亚主力航线密集，南亚航线快速增长</td>
-                        <td>货物吞吐量大，散杂货与集装箱并重</td>
-                        <td>小商品、家电、建材、塑料制品</td>
-                    </tr>
-                    <tr>
-                        <td><strong>深圳港</strong></td>
-                        <td>华南核心枢纽，珠三角出口门户</td>
-                        <td>东南亚航线密集，越南/泰国/印尼航线为主</td>
-                        <td>电子产品出口占比高，跨境电商货物增长快</td>
-                        <td>消费电子、通信设备、电商包裹</td>
-                    </tr>
-                    <tr>
-                        <td><strong>广州港</strong></td>
-                        <td>华南综合性主枢纽港</td>
-                        <td>东南亚航线覆盖全面，南沙港区为核心</td>
-                        <td>内贸外贸兼顾，南沙港区发展迅速</td>
-                        <td>家电、家具、陶瓷、服装</td>
-                    </tr>
-                    <tr>
-                        <td><strong>青岛港</strong></td>
-                        <td>北方第一大外贸港</td>
-                        <td>东南亚/南亚航线稳步增长，日韩中转优势</td>
-                        <td>北方出口主力，日韩中转与东南亚直航并重</td>
-                        <td>家电、轮胎、钢铁、农产品</td>
-                    </tr>
-                    <tr>
-                        <td><strong>天津港</strong></td>
-                        <td>华北最大港口，京津冀出海门户</td>
-                        <td>东南亚航线持续加密，南亚航线逐步拓展</td>
-                        <td>北方散杂货与集装箱并重，内贸中转功能强</td>
-                        <td>钢材、汽车、机械设备、化工品</td>
-                    </tr>
-                    <tr>
-                        <td><strong>厦门港</strong></td>
-                        <td>东南沿海重要枢纽港</td>
-                        <td>东南亚航线密集，对台/对东南亚双优势</td>
-                        <td>对东南亚出口增速快，近洋航线优势明显</td>
-                        <td>石材、电子产品、食品、轻工产品</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
-        <!-- ==================== 14. MARKET ANALYSIS TEXT ==================== -->
-        <div class="section">
-            <h2>市场分析</h2>
-            <div style="padding:12px 0;">
-                <h3>亚洲区内贸易持续增长</h3>
-                <p>
-                    2026年上半年，中国与东盟贸易总额达到<span class="highlight-green">4.34万亿元人民币</span>，同比增长<span class="highlight-green">18.2%</span>，
-                    继续保持中国第一大贸易伙伴地位。RCEP协定的深入实施持续释放关税红利，推动区域内产业链深度融合。
-                    中国至东南亚/南亚集装箱航运市场受益于这一宏观趋势，货量保持强劲增长势头。
-                </p>
-
-                <h3>区域船公司竞争格局</h3>
-                <p>
-                    在中国至东南亚/南亚航线上，<span class="highlight-green">SITC（海丰国际）</span>作为亚洲区内绝对领先者，
-                    凭借76条航线、119艘船舶（自有率88%）的庞大网络，在亚洲区内市场份额约<span class="highlight-gold">8%</span>，
-                    是该区域最具影响力的承运人。SITC东南亚收入占比从2013年的11%提升至2025年的29%，战略重心持续向南。
-                </p>
-                <p>
-                    <span class="highlight-green">PIL（太平船务）</span>以新加坡为总部，在东南亚和南亚市场深耕50余年，
-                    特别是在<span class="highlight-cyan">非洲-亚洲专线</span>和<span class="highlight-cyan">南亚市场</span>具有独特优势。
-                    2025-2026年新开通的ITS、KCI、NCI航线进一步强化了其印尼和泰国市场布局。
-                </p>
-                <p>
-                    <span class="highlight-green">Wan Hai（万海航运）</span>和<span class="highlight-green">RCL（宏海箱运）</span>
-                    作为亚洲区内重要的区域承运人，分别在台湾-东南亚和泰国-东南亚航线上具有显著优势。
-                    Wan Hai以55+条航线覆盖亚洲区内，RCL以曼谷为基地深耕东南亚区域市场。
-                </p>
-                <p>
-                    全球性承运人（COSCO、CMA CGM、MSC、Maersk等）虽然在亚洲区内市场整体份额不及专业区域承运人，
-                    但凭借其全球网络和强大的干线运力，在东南亚主要港口之间提供高频次服务，同时在定价和附加费方面具有系统化优势。
-                </p>
-
-                <h3>中国-越南：亚洲区内最大贸易航线</h3>
-                <p>
-                    中国至越南航线是亚洲区域内最大的集装箱贸易航线，2025年越南从中国进口集装箱量达到<span class="highlight-green">277万TEU</span>，
-                    同比增长<span class="highlight-green">16%</span>。这一增长主要受益于中国制造业向越南的产业链转移、越南电子制造业的快速发展，
-                    以及中越跨境供应链的深度融合。越南已成为中国在东南亚地区最重要的贸易伙伴和制造业延伸目的地。
-                </p>
-
-                <h3>产业链升级趋势</h3>
-                <p>
-                    中国至东南亚/南亚的贸易结构正在经历从<span class="highlight-gold">"低端消费品"</span>向<span class="highlight-gold">"中间品+资本品"</span>
-                    的升级转型。越来越多的中国企业在东南亚设立生产基地，带动了机械设备、电子元器件、化工原料等中间品的出口增长。
-                    这一趋势不仅提升了单位货值，也提高了对航运服务时效性和可靠性的要求，有利于高服务品质的区域承运人获取溢价。
-                </p>
-
-                <h3>运价展望</h3>
-                <p>
-                    2026年Q3，SCFI东南亚航线运价指数维持在3,000点以上高位，舱位利用率约85-90%。
-                    随着Q3旺季PSS实施，运价短期仍有支撑。但需关注2026-2027年新造船集中交付带来的运力过剩风险，
-                    以及红海局势若缓解后运力释放对亚洲区内运价的潜在影响。
-                </p>
-            </div>
-        </div>
-
-        <!-- ==================== 15. SOURCES LIST ==================== -->
-        <div class="section">
-            <h2>数据来源</h2>
-            <ul class="sources-list">
-                <li><strong>上海航运交易所 (SSE)</strong> — SCFI/CCFI运价指数数据</li>
-                <li><strong>Drewry Maritime Research</strong> — 全球集装箱航运市场分析</li>
-                <li><strong>Alphaliner</strong> — 全球船队运力与船公司排名数据</li>
-                <li><strong>Clarksons Research</strong> — 航运市场数据与运价分析</li>
-                <li><strong>MPA Singapore (新加坡海事及港务管理局)</strong> — 新加坡港吞吐量数据</li>
-                <li><strong>中国海关总署</strong> — 中国进出口贸易数据</li>
-                <li><strong>PIL 太平船务官网</strong> — PIL船队与航线信息</li>
-                <li><strong>SITC 海丰国际年报/公告</strong> — SITC财务数据与运营数据</li>
-                <li><strong>COSCO SHIPPING 中远海运</strong> — 洋浦港战略与航线数据</li>
-                <li><strong>Wan Hai 万海航运</strong> — 航线网络与运营数据</li>
-                <li><strong>RCL 宏海箱运</strong> — 东南亚区域航线数据</li>
-                <li><strong>Seabury/MDS Transmodal</strong> — 集装箱贸易流量数据</li>
-                <li><strong>中华人民共和国商务部</strong> — 中国-东盟贸易统计数据</li>
-                <li><strong>RCEP官方信息</strong> — 区域关税与贸易协定信息</li>
-                <li><strong>各船公司官方公告</strong> — 附加费/航线调整/服务公告</li>
-            </ul>
-            <p style="font-size:0.85rem;color:var(--text-secondary);margin-top:12px;">
-                <strong>免责声明：</strong>本报告数据来源于公开信息，部分数据为行业估算值，仅供参考。实际运价以各船公司实时报价为准。
-                报告中的市场分析观点不代表任何机构立场。
-            </p>
-        </div>
-
+<!-- Charts -->
+<div class="section">
+  <div class="section-title">市场数据可视化</div>
+  <div class="chart-grid">
+    <div class="chart-card">
+      <h3>东南亚/南亚航线运价指数走势（2026年）</h3>
+      <div class="chart-container" id="chart_sea_index"></div>
     </div>
+    <div class="chart-card">
+      <h3>中国至主要目的地综合运价对比（USD/TEU）</h3>
+      <div class="chart-container" id="chart_destination_rates"></div>
+    </div>
+    <div class="chart-card">
+      <h3>中国至东南亚/南亚月度货量趋势（万TEU）</h3>
+      <div class="chart-container" id="chart_monthly_volume"></div>
+    </div>
+    <div class="chart-card">
+      <h3>亚洲区域内航线市场份额分布</h3>
+      <div class="chart-container" id="chart_market_share"></div>
+    </div>
+  </div>
+</div>
 
-    <!-- External Scripts -->
-    <script src="assets/echarts.min.js"></script>
-    <script src="assets/charts.js"></script>
+<!-- PIL Section -->
+<div class="section">
+  <div class="section-title">PIL / 太平船务 — 新加坡根基，深耕新兴市场</div>
+  <div class="company-card">
+    <h3 style="color:#0f4c3a;">Pacific International Lines (PIL) — 新加坡起家，全球运力第12位</h3>
+    <p>太平船务（PIL）由张允中先生于1967年在新加坡创立，是东南亚地区最具影响力的本土航运企业之一。经过50余年发展，PIL已成长为全球运力排名第12位的集装箱班轮公司，运营89艘船舶，总运力约29.6万TEU，覆盖六大洲350多个港口，全球市场份额约1.0%。</p>
+    <div class="highlight">
+      <strong>东南亚航线全覆盖：</strong>PIL在东南亚拥有13个直属分公司和7个代理办事处，构建了高密度的区域航线网络。2026年9月即将推出全新印尼-泰国航线（ITS），挂靠巴生港→新加坡→林查班→曼谷→三宝垄→泗水，进一步强化东南亚内部联通。
+    </div>
+    <p><strong>南亚航线市占率领先：</strong>PIL每周运营5班中国-印度/巴基斯坦/斯里兰卡直航服务，连接中国与红海关键港口，在南亚区域拥有深厚的客户基础和品牌认知。2026年8月进一步推出IMX（Imara Express）航线，连接印度（Nhava Sheva/Mundra）与东非（Dar Es Salam/Mombasa）。</p>
+    <p><strong>非洲-亚洲航线特色：</strong>PIL以新加坡为枢纽，独立运营SWS亚洲-西非直航（每周一班从中国直达尼日利亚Apapa/Onne），2026年新推出UBX（Ubuntu Express）连接上海→宁波→蛇口→新加坡→德班→开普敦，形成亚洲-非洲双线布局。</p>
+    <p><strong>船队更新：</strong>2026年6月，PIL在上海沪东中华造船厂举行两艘13,000 TEU LNG双燃料新船"Kota Elok"和"Kota Elan"命名仪式，这是13艘13,000 TEU新船系列的首批，标志着PIL加速船队现代化和绿色转型。</p>
+  </div>
+</div>
+
+<!-- SITC Section -->
+<div class="section">
+  <div class="section-title">SITC / 海丰国际 — 亚洲区域内绝对龙头</div>
+  <div class="company-card">
+    <h3 style="color:#2563eb;">海丰国际控股有限公司（SITC，港交所：01308）— 全球第14大班轮公司</h3>
+    <p>海丰国际（SITC）是亚洲区域内集装箱航运的绝对龙头，专注于中国与亚洲其他国家和地区之间的集装箱运输及物流服务。截至2025年12月31日，SITC运营119艘船舶（自有99艘，自有运力占比88%），总运力约18.7万TEU，平均船龄仅9.4年，船型全部在3,000TEU以下，2000TEU以下占比80%，精准匹配亚洲区域内航线需求。</p>
+    <div class="highlight">
+      <strong>核心数据一览：</strong>76条贸易航线 | 覆盖15个国家82个港口 | 2025年运量385万TEU（+7.8%） | 全球排名第14位 | intra-Asia市场份额约8% | 2025年收入34.1亿美元（+11.6%） | 净利润12.2亿美元（+18.9%） | 毛利率38.4% | ROE 50%
+    </div>
+    <p><strong>市场份额持续提升：</strong>基于CTS 2025年前11个月数据，亚洲区域内总运量约4,340万TEU（+5.6%），SITC市场份额约8%，较此前提升至少2个百分点。亚洲区域内航线占全球集装箱货运总量的31%，是增速最快的细分市场。</p>
+    <p><strong>在建新船28艘：</strong>包括黄海造船10艘×1,800TEU + 8艘×2,700TEU（2026-2029年交付），以及扬子江船业10艘×1,100TEU（2028-2029年交付），总在建运力约5.06万TEU，占现有船队约27%，为未来增长提供充足运力储备。</p>
+    <p><strong>物流园布局：</strong>SITC在中国（青岛、上海、宁波、天津、大连、厦门、深圳）、越南（海防、胡志明、岘港）、泰国（曼谷、林查班）、印尼（雅加达、泗水、三宝垄）、马来西亚及南非（约翰内斯堡、开普敦）建立了广泛的堆场和仓储网络，实现"海运+陆运"一体化服务。越南岘港堆场经营面积约3.6万平米。</p>
+    <p><strong>2026年展望：</strong>Q1货量85.6万TEU（+7.6%），管理层预期Q2运价和运量均可录得同比增长。华泰证券预测2026年净利润10.3亿美元，天风证券预测14.8亿美元（+21%）。</p>
+  </div>
+</div>
+
+<!-- COSCO Yangpu Section -->
+<div class="section">
+  <div class="section-title">中远海运洋浦国际枢纽港战略</div>
+  <div class="company-card">
+    <h3 style="color:#0d9488;">中远海运 — 洋浦港：东南亚/南亚核心中转枢纽</h3>
+    <p>中远海运将海南洋浦港定位为西部陆海新通道国际枢纽海港和海南自贸港核心门户，围绕洋浦港实施"东西南北"航线网络布局，打造"双向双枢纽"格局。截至2025年11月，洋浦港累计开通运营<strong>17组外贸航线</strong>（2025年新增10组），新增运力45.4万TEU，涉及洋浦总运力达49.1万TEU，同比增长12倍。</p>
+    <div class="highlight">
+      <strong>2025-2026年核心航线：</strong>SEI2东南亚-南亚精品航线（钦州→洋浦→海防→新加坡→蒙德拉→新加坡→香港→钦州）| YBX中国-东南亚直联航线（洋浦→亚庇→巴淡→新加坡"四国联动"）| AWE4美东航线升级（洋浦→东南亚枢纽→纽约→萨凡纳→查尔斯顿）| CPV美西北航线（洋浦→西雅图）| CI1/YCX南亚直航（洋浦→卡拉奇→蒙德拉→那瓦西瓦→科伦坡）
+    </div>
+    <p><strong>洋浦港运营数据：</strong></p>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>指标</th><th>数据</th><th>同比</th><th>时间</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>集装箱吞吐量</td><td><strong>312-330万TEU</strong></td><td>+65%-72.5%</td><td>2025年全年</td></tr>
+          <tr><td>集装箱吞吐量</td><td><strong>103万+TEU</strong></td><td>+100%</td><td>封关后百日</td></tr>
+          <tr><td>外贸集装箱</td><td><strong>39万TEU</strong></td><td>+210.3%</td><td>封关后百日</td></tr>
+          <tr><td>集装箱吞吐量</td><td><strong>189.4万TEU</strong></td><td>+55.15%</td><td>封关半年</td></tr>
+          <tr><td>国际航行船舶</td><td><strong>2,452艘次</strong></td><td>+18.05%</td><td>封关半年</td></tr>
+          <tr><td>外贸航线</td><td><strong>17组</strong></td><td>+10组</td><td>截至2025年11月</td></tr>
+          <tr><td>2026年预计</td><td><strong>380万TEU</strong></td><td>—</td><td>满载能力500万TEU</td></tr>
+          <tr><td>泊位数</td><td><strong>多个深水泊位</strong></td><td>—</td><td>可接卸全球最大集装箱船</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p><strong>内外贸同船运输：</strong>借助泛亚航运网络高频衔接国内华北、华东、华南、西南地区，实现"内贸+外贸"货物同船运输，最大化船舶利用率。洋浦港已初步构建起覆盖美国、拉美、中东、澳大利亚、南太平洋、东南亚及南亚的航线网络体系。</p>
+  </div>
+</div>
+
+<!-- Carrier Overview Table -->
+<div class="section">
+  <div class="section-title">船公司概览（中国至东南亚/南亚航线）</div>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>船公司</th><th>联盟</th><th>东南亚航线</th><th>南亚航线</th><th>航线数</th><th>特色</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>PIL</strong></td>
+          <td>独立（舱位互换：Maersk/CMA CGM）</td>
+          <td><span class="tag-green">全覆盖</span></td>
+          <td><span class="tag-green">5班/周</span></td>
+          <td>50+</td>
+          <td>新加坡起家，东南亚本土网络深厚，非洲-亚洲特色航线</td>
+        </tr>
+        <tr>
+          <td><strong>COSCO</strong></td>
+          <td>Ocean Alliance</td>
+          <td><span class="tag-green">全覆盖</span></td>
+          <td><span class="tag-green">CI1/YCX/SEI2</span></td>
+          <td>40+</td>
+          <td>洋浦国际枢纽港战略，17组外贸航线，内外贸同船</td>
+        </tr>
+        <tr>
+          <td><strong>CMA CGM</strong></td>
+          <td>Ocean Alliance</td>
+          <td><span class="tag-green">全覆盖</span></td>
+          <td><span class="tag-green">直航</span></td>
+          <td>35+</td>
+          <td>法国总部，东南亚支线网络完善，8月起实施GRI</td>
+        </tr>
+        <tr>
+          <td><strong>MSC</strong></td>
+          <td>独立（舱位互换：Maersk）</td>
+          <td><span class="tag-green">全覆盖</span></td>
+          <td><span class="tag-gold">部分覆盖</span></td>
+          <td>30+</td>
+          <td>全球运力第一，Indus Express暂停后运力削减</td>
+        </tr>
+        <tr>
+          <td><strong>Maersk</strong></td>
+          <td>2M（已终止）</td>
+          <td><span class="tag-green">全覆盖</span></td>
+          <td><span class="tag-gold">部分覆盖</span></td>
+          <td>30+</td>
+          <td>丹麦总部，舱位互换合作广泛，东南亚中转枢纽</td>
+        </tr>
+        <tr>
+          <td><strong>ONE</strong></td>
+          <td>THE Alliance</td>
+          <td><span class="tag-green">全覆盖</span></td>
+          <td><span class="tag-gold">WIN服务</span></td>
+          <td>25+</td>
+          <td>日本整合品牌，南亚WIN服务仅维持单航次</td>
+        </tr>
+        <tr>
+          <td><strong>Evergreen</strong></td>
+          <td>Ocean Alliance</td>
+          <td><span class="tag-green">全覆盖</span></td>
+          <td><span class="tag-green">直航</span></td>
+          <td>30+</td>
+          <td>台湾总部，8月起实施GRI，东南亚班次密集</td>
+        </tr>
+        <tr>
+          <td><strong>OOCL</strong></td>
+          <td>Ocean Alliance（COSCO子公司）</td>
+          <td><span class="tag-green">全覆盖</span></td>
+          <td><span class="tag-green">直航</span></td>
+          <td>25+</td>
+          <td>香港总部，依托COSCO网络，东南亚服务优质</td>
+        </tr>
+        <tr>
+          <td><strong>Yang Ming</strong></td>
+          <td>THE Alliance</td>
+          <td><span class="tag-green">全覆盖</span></td>
+          <td><span class="tag-gold">部分覆盖</span></td>
+          <td>20+</td>
+          <td>台湾总部，8月起实施GRI，东南亚航线稳定</td>
+        </tr>
+        <tr>
+          <td><strong>Wan Hai</strong></td>
+          <td>独立</td>
+          <td><span class="tag-green">全覆盖</span></td>
+          <td><span class="tag-gold">部分覆盖</span></td>
+          <td>25+</td>
+          <td>台湾总部，亚洲区域周班25班，冷链快航特色</td>
+        </tr>
+        <tr>
+          <td><strong>SITC</strong></td>
+          <td>独立</td>
+          <td><span class="tag-green">全覆盖</span></td>
+          <td><span class="tag-gold">部分覆盖</span></td>
+          <td>76条</td>
+          <td>亚洲区域内绝对龙头，119艘船，intra-Asia份额约8%</td>
+        </tr>
+        <tr>
+          <td><strong>RCL</strong></td>
+          <td>独立</td>
+          <td><span class="tag-green">全覆盖</span></td>
+          <td><span class="tag-gold">部分覆盖</span></td>
+          <td>20+</td>
+          <td>泰国总部，东南亚本土网络，首次进入拉美航线</td>
+        </tr>
+        <tr>
+          <td><strong>X-Press Feeders</strong></td>
+          <td>独立</td>
+          <td><span class="tag-green">全覆盖</span></td>
+          <td><span class="tag-gold">部分覆盖</span></td>
+          <td>15+</td>
+          <td>全球最大支线运营商，绿色甲醇动力船队</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Carrier Service Coverage Matrix -->
+<div class="section">
+  <div class="section-title">船公司服务覆盖矩阵（中国至东南亚/南亚）</div>
+  <div class="matrix-wrap">
+    <table class="matrix-table">
+      <thead>
+        <tr><th>船公司</th><th>新加坡</th><th>巴生港</th><th>林查班</th><th>胡志明</th><th>海防</th><th>雅加达</th><th>马尼拉</th><th>曼谷</th><th>那瓦西瓦</th><th>蒙德拉</th><th>卡拉奇</th><th>科伦坡</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>PIL</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td></tr>
+        <tr><td>COSCO</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td></tr>
+        <tr><td>CMA CGM</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="partial">△</td><td class="check">✓</td><td class="check">✓</td><td class="partial">△</td><td class="check">✓</td></tr>
+        <tr><td>MSC</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="partial">△</td><td class="check">✓</td><td class="check">✓</td><td class="partial">△</td><td class="check">✓</td><td class="check">✓</td><td class="partial">△</td><td class="check">✓</td></tr>
+        <tr><td>Maersk</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="partial">△</td><td class="check">✓</td><td class="check">✓</td><td class="partial">△</td><td class="check">✓</td></tr>
+        <tr><td>ONE</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="partial">△</td><td class="check">✓</td><td class="check">✓</td><td class="partial">△</td><td class="check">✓</td><td class="partial">△</td><td class="none">×</td><td class="check">✓</td></tr>
+        <tr><td>Evergreen</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="partial">△</td><td class="check">✓</td><td class="check">✓</td><td class="partial">△</td><td class="check">✓</td></tr>
+        <tr><td>OOCL</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="partial">△</td><td class="check">✓</td><td class="check">✓</td><td class="partial">△</td><td class="check">✓</td></tr>
+        <tr><td>Yang Ming</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="partial">△</td><td class="check">✓</td><td class="check">✓</td><td class="partial">△</td><td class="check">✓</td><td class="partial">△</td><td class="none">×</td><td class="check">✓</td></tr>
+        <tr><td>Wan Hai</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="partial">△</td><td class="none">×</td><td class="partial">△</td></tr>
+        <tr><td>SITC</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="partial">△</td><td class="none">×</td><td class="partial">△</td></tr>
+        <tr><td>RCL</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="partial">△</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="partial">△</td><td class="none">×</td><td class="check">✓</td></tr>
+        <tr><td>X-Press Feeders</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="partial">△</td><td class="none">×</td><td class="none">×</td><td class="partial">△</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p style="font-size:12px;color:var(--text-muted);">✓ 直航覆盖 | △ 中转/舱位互换 | × 未覆盖</p>
+</div>
+
+<!-- Surcharges Comparison -->
+<div class="section">
+  <div class="section-title">附加费对比（PSS / BKC / FAK等）</div>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>船公司</th><th>PSS（旺季附加费）</th><th>BKC（燃油附加费）</th><th>FAK Rate（USD/40HQ）</th><th>GRI（8月）</th><th>备注</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>COSCO</td><td>$150-300/40HQ</td><td>含在运价中</td><td>$650-900（新加坡）</td><td>已实施</td><td>洋浦港中转可享自贸港政策优惠</td></tr>
+        <tr><td>CMA CGM</td><td>$200-400/40HQ</td><td>单独列收</td><td>$700-1,000</td><td>已实施</td><td>8月1日起生效</td></tr>
+        <tr><td>Evergreen</td><td>$150-350/40HQ</td><td>含在运价中</td><td>$680-950</td><td>已实施</td><td>8月1日起生效</td></tr>
+        <tr><td>HMM</td><td>$200-350/40HQ</td><td>单独列收</td><td>$650-900</td><td>已实施</td><td>8月1日起生效</td></tr>
+        <tr><td>Yang Ming</td><td>$150-300/40HQ</td><td>含在运价中</td><td>$650-880</td><td>已实施</td><td>8月1日起生效</td></tr>
+        <tr><td>ZIM</td><td>$200-400/40HQ</td><td>单独列收</td><td>$700-1,000</td><td>已实施</td><td>8月1日起生效</td></tr>
+        <tr><td>Maersk</td><td>$200-400/40HQ</td><td>单独列收</td><td>$700-1,050</td><td>部分实施</td><td>南亚线取消订舱罚金$200/箱</td></tr>
+        <tr><td>MSC</td><td>$200-400/40HQ</td><td>单独列收</td><td>$700-1,000</td><td>部分实施</td><td>南亚线取消订舱罚金$200/箱</td></tr>
+        <tr><td>ONE</td><td>$150-350/40HQ</td><td>单独列收</td><td>$680-950</td><td>部分实施</td><td>南亚线取消订舱罚金$100-200/箱</td></tr>
+        <tr><td>Hapag-Lloyd</td><td>$200-500/40HQ</td><td>单独列收</td><td>$750-1,100</td><td>部分实施</td><td>南亚线取消订舱罚金$300/箱（最高）</td></tr>
+        <tr><td>PIL</td><td>$100-250/40HQ</td><td>含在运价中</td><td>$600-850</td><td>未公告</td><td>东南亚区域定价较灵活</td></tr>
+        <tr><td>SITC</td><td>$100-200/40HQ</td><td>含在运价中</td><td>$550-800</td><td>未公告</td><td>亚洲区域内主力，定价竞争力强</td></tr>
+        <tr><td>Wan Hai</td><td>$100-250/40HQ</td><td>含在运价中</td><td>$600-850</td><td>未公告</td><td>东南亚周班25班，舱位充裕</td></tr>
+        <tr><td>RCL</td><td>$100-200/40HQ</td><td>含在运价中</td><td>$500-750</td><td>未公告</td><td>泰资背景，东南亚本土定价灵活</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p style="font-size:12px;color:var(--text-muted);">注：PSS/BKC费率为市场参考区间，实际价格需通过订舱系统或合同价确认。FAK Rate以中国至新加坡/东南亚为参考基准。</p>
+</div>
+
+<!-- Risk Factors -->
+<div class="section">
+  <div class="section-title">风险因素监测</div>
+  <div class="risk-grid">
+    <div class="risk-card">
+      <div class="risk-level high">高风险</div>
+      <h4>霍尔木兹海峡冲突</h4>
+      <p>伊朗冲突导致南亚航线运价飙升至3年高位，JNPT→杰贝阿里运价涨至$5,609/FEU（+807%），MSC/ONE两月内削减南亚运力约14%，纳瓦谢瓦港等待时间增至26小时。</p>
+    </div>
+    <div class="risk-card">
+      <div class="risk-level high">高风险</div>
+      <h4>美线运力虹吸效应</h4>
+      <p>美线因利润丰厚持续虹吸东南亚/欧洲航线船舶与集装箱，中信建投指出这进一步加剧东南亚运力紧张。美西运价$6,229/FEU（+12.5%），美东$9,054/FEU（+12.6%）。</p>
+    </div>
+    <div class="risk-card">
+      <div class="risk-level medium">中风险</div>
+      <h4>亚洲港口拥堵</h4>
+      <p>上海、宁波港船期延误约3-5天，新加坡港约3天，马来西亚港约3天。部分货物从7月顺延至8月出运，泰国方向舱位已订至8月10日左右。</p>
+    </div>
+    <div class="risk-card">
+      <div class="risk-level medium">中风险</div>
+      <h4>运价波动风险</h4>
+      <p>东南亚航线运价7月经历6%下跌后触底反弹，但仍处于近年低位（$628-668/TEU），与美线$6,000+/FEU形成巨大价差，船公司调配意愿持续走弱。</p>
+    </div>
+    <div class="risk-card">
+      <div class="risk-level medium">中风险</div>
+      <h4>南亚运力紧张</h4>
+      <p>MSC暂停Indus Express，ONE WIN服务仅维持单航次，南亚运力持续紧张。MSC计划8月下旬恢复服务，但恢复进度不确定。赫伯罗特取消订舱罚金升至$300/箱。</p>
+    </div>
+    <div class="risk-card">
+      <div class="risk-level low">低风险</div>
+      <h4>海南自贸港政策红利</h4>
+      <p>洋浦港封关后集装箱吞吐量同比增长100%，外贸增长210.3%。2026年预计全年380万TEU，满载能力500万TEU。政策红利持续释放，对冲部分风险。</p>
+    </div>
+  </div>
+</div>
+
+<!-- Monthly Core Data -->
+<div class="section">
+  <div class="section-title">月度核心数据（2026年）</div>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>月份</th><th>SCFI综合指数</th><th>东南亚线（USD/TEU）</th><th>新加坡港吞吐量（万TEU）</th><th>中越货量（万TEU）</th><th>洋浦港吞吐量（万TEU）</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>1月</td><td>2,829.74</td><td>$589</td><td>375</td><td>21.5</td><td>28.0</td></tr>
+        <tr><td>2月</td><td>2,610.43</td><td>$552</td><td>342</td><td>17.2</td><td>25.5</td></tr>
+        <tr><td>3月</td><td>2,891.55</td><td>$605</td><td>385</td><td>23.8</td><td>32.0</td></tr>
+        <tr><td>4月</td><td>3,102.36</td><td>$648</td><td>378</td><td>24.1</td><td>34.5</td></tr>
+        <tr><td>5月</td><td>3,198.42</td><td>$672</td><td>380</td><td>24.8</td><td>35.8</td></tr>
+        <tr><td>6月</td><td>3,248.50</td><td>$689</td><td>383</td><td>25.2</td><td>37.2</td></tr>
+        <tr><td>7月</td><td>3,205.97</td><td>$638</td><td>380（估）</td><td>24.0（估）</td><td>36.0（估）</td></tr>
+        <tr><td>8月</td><td>待公布</td><td>待公布</td><td>待公布</td><td>待公布</td><td>待公布</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p style="font-size:12px;color:var(--text-muted);">标注"估"的数据为基于公开信息估算值，实际数据以各机构官方发布为准。SCFI指数以上海航运交易所每周发布为准。</p>
+</div>
+
+<!-- Port Delays -->
+<div class="section">
+  <div class="section-title">主要港口延误时间（2026年8月）</div>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>港口</th><th>国家/地区</th><th>延误时间</th><th>趋势</th><th>主要原因</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>上海港</td><td>中国</td><td>3-5天</td><td><span class="tag-red">持续</span></td><td>美线货物集中出运，泊位紧张</td></tr>
+        <tr><td>宁波港</td><td>中国</td><td>3-5天</td><td><span class="tag-red">持续</span></td><td>与上海港联动，船舶排队</td></tr>
+        <tr><td>新加坡港</td><td>新加坡</td><td>约3天</td><td><span class="tag-gold">缓解中</span></td><td>全球中转枢纽，季节性高峰</td></tr>
+        <tr><td>巴生港</td><td>马来西亚</td><td>约3天</td><td><span class="tag-gold">平稳</span></td><td>区域中转枢纽，拥堵缓解</td></tr>
+        <tr><td>纳瓦谢瓦港（JNPT）</td><td>印度</td><td>26小时</td><td><span class="tag-red">恶化</span></td><td>霍尔木兹冲突，滚装货量2,000-3,000 TEU/航次</td></tr>
+        <tr><td>蒙德拉港</td><td>印度</td><td>20-24小时</td><td><span class="tag-red">恶化</span></td><td>南亚运力紧张，滚装货量激增</td></tr>
+        <tr><td>林查班港</td><td>泰国</td><td>1-2天</td><td><span class="tag-gold">平稳</span></td><td>BKK港方向舱位趋紧</td></tr>
+        <tr><td>胡志明港</td><td>越南</td><td>1-2天</td><td><span class="tag-green">正常</span></td><td>运价持平，存在晚开现象</td></tr>
+        <tr><td>洋浦港</td><td>中国（海南）</td><td>&lt;1天</td><td><span class="tag-green">畅通</span></td><td>新枢纽港，吞吐能力充裕</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- China Ports Export -->
+<div class="section">
+  <div class="section-title">中国主要港口对东南亚/南亚出口概况</div>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>港口</th><th>东南亚航线</th><th>南亚航线</th><th>主要目的地</th><th>特色</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>上海港</strong></td><td>日均多班</td><td>每周多班</td><td>新加坡、巴生、林查班、胡志明、那瓦西瓦</td><td>中国最大集装箱港，航线最密集</td></tr>
+        <tr><td><strong>宁波舟山港</strong></td><td>日均多班</td><td>每周多班</td><td>新加坡、巴生、马尼拉、蒙德拉</td><td>全球第一大港（货物吞吐量），东南亚航线密集</td></tr>
+        <tr><td><strong>深圳港</strong></td><td>日均多班</td><td>每周2-3班</td><td>新加坡、巴生、胡志明、科伦坡</td><td>华南枢纽，电子消费品出口重镇</td></tr>
+        <tr><td><strong>广州港（南沙）</strong></td><td>每日多班</td><td>每周1-2班</td><td>新加坡、巴生、雅加达、卡拉奇</td><td>南沙港区深度对接洋浦港中转网络</td></tr>
+        <tr><td><strong>青岛港</strong></td><td>每周多班</td><td>每周1-2班</td><td>新加坡、巴生、胡志明、那瓦西瓦</td><td>万海冷链快航5天抵越南，北方出口门户</td></tr>
+        <tr><td><strong>天津港</strong></td><td>每周多班</td><td>每周1班</td><td>新加坡、巴生、胡志明、蒙德拉</td><td>华北工业品出口，南亚运价$1,428/20GP（8月）</td></tr>
+        <tr><td><strong>厦门港</strong></td><td>每周多班</td><td>每周1班</td><td>新加坡、马尼拉、巴生</td><td>福建出口门户，东南亚航线稳步增长</td></tr>
+        <tr><td><strong>洋浦港</strong></td><td>每日多班</td><td>每周多班</td><td>新加坡、海防、蒙德拉、卡拉奇、科伦坡</td><td>新兴国际中转枢纽，17组外贸航线，内外贸同船</td></tr>
+        <tr><td><strong>钦州港</strong></td><td>每周多班</td><td>每周多班</td><td>新加坡、海防、蒙德拉</td><td>西部陆海新通道门户，与洋浦联动</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Market Analysis -->
+<div class="section">
+  <div class="section-title">市场分析</div>
+  <div class="summary-grid">
+    <div class="summary-card">
+      <h4>区域船公司竞争力分析</h4>
+      <p>亚洲区域内航线市场呈现"巨头+区域专精"双轨格局。全球前10大班轮公司（MSC、Maersk、CMA CGM、COSCO等）凭借干线网络优势覆盖东南亚/南亚主要港口，但区域专精型船公司展现出更强的灵活性和成本竞争力。<strong>SITC（海丰国际）</strong>以119艘船、76条航线、385万TEU年运量稳居亚洲区域内绝对龙头，intra-Asia市场份额约8%，毛利率高达38.4%。<strong>PIL（太平船务）</strong>深耕新兴市场50余年，东南亚13个直属分公司覆盖全区域，南亚每周5班直航服务市占率领先。<strong>Wan Hai（万海航运）</strong>东南亚周班密度达25班，冷链快航特色突出（越南进口水果5天抵青岛）。<strong>RCL（宏海箱运）</strong>以泰国为基地，东南亚本土定价灵活，2025年首次进入拉美航线实现业务多元化。</p>
+    </div>
+    <div class="summary-card">
+      <h4>洋浦港战略意义</h4>
+      <p>中远海运将洋浦港打造为东南亚/南亚核心中转枢纽的战略已初见成效。2025年封关后集装箱吞吐量同比增长100%，外贸增长210.3%，2026年预计全年380万TEU。SEI2、CI1、YCX三条南亚直航航线将中国至印度运输时效缩短约15天，AWE4美东航线升级后洋浦首次实现直航美东，标志着洋浦作为区域枢纽港的功能全面升级。海南自贸港政策红利（零关税、低税率、简税制）叠加洋浦港地理优势，将持续吸引东南亚/南亚货源在洋浦集拼中转。</p>
+    </div>
+    <div class="summary-card">
+      <h4>运价趋势与展望</h4>
+      <p>东南亚航线运价在2026年6月触及$689/TEU高点后回落至$628/TEU，7月下旬开始反弹。受美线高利润虹吸效应影响，东南亚航线运力持续紧张，但运价涨幅远低于美线和南亚线。南亚航线受霍尔木兹海峡冲突影响，NCFI印巴线7月底单周暴涨14.18%，MSC/ONE运力削减约14%，运价处于3年高位。展望8-9月，随着传统旺季到来和美线GRI落地，东南亚航线运价有望继续温和反弹，南亚航线则取决于地缘政治局势变化。</p>
+    </div>
+    <div class="summary-card">
+      <h4>供应链风险提示</h4>
+      <p>当前亚洲港口拥堵持续（上海/宁波3-5天延误），泰国方向舱位已趋紧至8月10日。南亚方向因霍尔木兹冲突，运力紧张格局短期内难以缓解，赫伯罗特取消订舱罚金已升至$300/箱。建议货主提前2-3周订舱，关注SITC、Wan Hai、RCL等区域船公司舱位作为替代方案。洋浦港作为新兴中转枢纽，可提供更多东南亚/南亚航线选择，且拥堵程度远低于上海/宁波等传统大港。中越铁路（2026年上半年出口16,816 TEU）也可作为海路运力的有益补充。</p>
+    </div>
+  </div>
+</div>
+
+<!-- Sources -->
+<div class="section">
+  <div class="section-title">数据来源</div>
+  <div class="sources">
+    <p><strong>官方数据源：</strong></p>
+    <p>1. 上海航运交易所（SSE）— SCFI综合指数及分航线运价（每周发布）</p>
+    <p>2. 宁波航运交易所（NCFI）— 宁波出口集装箱运价指数</p>
+    <p>3. 新加坡海事及港务管理局（MPA）— 新加坡港吞吐量年度报告</p>
+    <p>4. PSA Singapore — 新加坡港运营数据</p>
+    <p>5. 海南自由贸易港官方网站 — 洋浦港吞吐量及航线数据</p>
+    <p>6. Alphaliner — 全球集装箱船队运力排名</p>
+    <p>7. Clarksons Research — 航运市场数据</p>
+    <p>8. Container Trade Statistics (CTS) — 亚洲区域内运量统计</p>
+    <p>9. Drewry Maritime Research — 全球运价基准</p>
+    <p><strong>船公司来源：</strong></p>
+    <p>10. SITC海丰国际官网 — 2025年年报、船队数据、航线网络</p>
+    <p>11. PIL太平船务官网 — 船队更新、航线公告、新服务发布</p>
+    <p>12. 中远海运集运官网 — 洋浦港航线网络、内外贸同船运输</p>
+    <p>13. 万海航运官网 — 船队与航线数据</p>
+    <p>14. RCL宏海箱运官网 — 2025年年报、船队计划</p>
+    <p><strong>研究机构：</strong></p>
+    <p>15. 申万宏源证券 — 交运行业一周天地汇（2026.08.01）</p>
+    <p>16. 中信建投证券 — 交运板块配置价值分析（2026.08）</p>
+    <p>17. 国金证券 — SITC深度研报（2026.07.21）</p>
+    <p>18. 华泰证券 — SITC 2026Q1业绩点评（2026.04.22）</p>
+    <p>19. 天风证券 — SITC研报（2026.07.31）</p>
+    <p><strong>行业媒体：</strong></p>
+    <p>20. World Ports Organization — 全球港口动态</p>
+    <p>21. Splash247 — 新加坡港2026H1数据</p>
+    <p>22. The Loadstar — SITC市场份额分析</p>
+    <p>23. 全一海运市场周报 — 2026.08第1期</p>
+    <p>24. 海盟网 — 一周航运趋势（WEEK 32）</p>
+    <p>25. 福海供应链 — 亚洲港口拥堵报告</p>
+    <p style="margin-top:10px;color:var(--text-muted);">免责声明：本仪表板数据来源于公开信息，仅供参考，不构成任何投资或商业决策建议。具体运价请通过订舱系统或合同价确认。标注"公开信息不足"或"需订舱系统确认"的数据项为估算值。</p>
+  </div>
+</div>
+
+<!-- Footer -->
+<div class="footer">
+  <p>中国至东南亚/南亚集装箱航运市场纵览 | 数据更新：2026年8月7日 | Powered by Trae Work</p>
+</div>
+
+</div>
+
+<script src="assets/echarts.min.js"></script>
+<script src="assets/charts.js"></script>
 </body>
 </html>
