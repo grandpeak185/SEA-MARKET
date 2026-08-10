@@ -1,180 +1,307 @@
 (function() {
   'use strict';
 
-  var gridDefault = { left: 55, right: 25, top: 35, bottom: 45, containLabel: false };
-  var tooltipDefault = {
+  // Shared configuration
+  var tooltipStyle = {
     backgroundColor: 'rgba(255,255,255,0.95)',
     borderColor: '#e2e8f0',
-    textStyle: { color: '#1a2332' },
-    extraCssText: 'box-shadow: 0 4px 12px rgba(0,0,0,0.1);'
+    borderWidth: 1,
+    textStyle: { color: '#1a2332', fontSize: 12 },
+    extraCssText: 'box-shadow: 0 4px 12px rgba(0,0,0,0.08); border-radius: 8px;'
   };
 
-  function initChart(domId, option) {
-    var dom = document.getElementById(domId);
-    if (!dom) return;
-    var chart = echarts.init(dom, null, { renderer: 'svg' });
-    chart.setOption(option);
-    window.addEventListener('resize', function() { chart.resize(); });
-  }
+  var defaultGrid = { left: 55, right: 25, top: 35, bottom: 45, containLabel: false };
 
-  // Chart 1: 东南亚/南亚航线运价指数走势
-  initChart('chart_sea_index', {
-    grid: gridDefault,
-    tooltip: Object.assign({ trigger: 'axis', axisPointer: { type: 'cross' } }, tooltipDefault),
-    legend: { data: ['SCFI东南亚(新加坡)', 'SEAFI综合', '中国-越南'], bottom: 0, textStyle: { color: '#4a5568', fontSize: 11 } },
+  var axisLineColor = '#cbd5e1';
+  var axisLabelColor = '#64748b';
+  var splitLineColor = '#f1f5f9';
+
+  // Color palette
+  var colors = {
+    cyan: '#0891b2',
+    green: '#16a34a',
+    gold: '#d97706',
+    purple: '#7c3aed',
+    red: '#dc2626',
+    blue: '#2563eb',
+    teal: '#0d9488',
+    orange: '#ea580c',
+    indigo: '#4f46e5',
+    pink: '#db2777'
+  };
+
+  // ========== Chart 1: Southeast/South Asia Freight Index Trend ==========
+  var chart1 = echarts.init(document.getElementById('chart_sea_index'), null, { renderer: 'svg' });
+  chart1.setOption({
+    tooltip: Object.assign({ trigger: 'axis' }, tooltipStyle),
+    legend: {
+      data: ['SCFI综合指数', '东南亚航线运价指数'],
+      top: 0,
+      right: 10,
+      textStyle: { color: axisLabelColor, fontSize: 11 },
+      itemWidth: 14,
+      itemHeight: 8,
+      itemGap: 12
+    },
+    grid: defaultGrid,
     xAxis: {
       type: 'category',
-      data: ['2026-01','2026-02','2026-03','2026-04','2026-05','2026-06','2026-07','2026-08'],
-      axisLine: { lineStyle: { color: '#cbd5e1' } },
-      axisLabel: { color: '#64748b', fontSize: 11 }
+      data: ['25/08', '25/09', '25/10', '25/11', '25/12', '26/01', '26/02', '26/03', '26/04', '26/05', '26/06', '26/07', '26/08'],
+      axisLine: { lineStyle: { color: axisLineColor } },
+      axisLabel: { color: axisLabelColor, fontSize: 10, rotate: 30 },
+      axisTick: { show: false }
     },
-    yAxis: {
-      type: 'value',
-      name: 'USD/TEU',
-      nameTextStyle: { color: '#64748b', fontSize: 11 },
-      splitLine: { lineStyle: { color: '#f1f5f9' } },
-      axisLine: { show: false },
-      axisLabel: { color: '#64748b', fontSize: 11 }
-    },
+    yAxis: [
+      {
+        type: 'value',
+        name: 'SCFI综合',
+        position: 'left',
+        nameTextStyle: { color: axisLabelColor, fontSize: 10 },
+        axisLine: { show: false },
+        axisLabel: { color: axisLabelColor, fontSize: 10 },
+        splitLine: { lineStyle: { color: splitLineColor } },
+        min: 2500,
+        max: 3600
+      },
+      {
+        type: 'value',
+        name: '东南亚(点)',
+        position: 'right',
+        nameTextStyle: { color: axisLabelColor, fontSize: 10 },
+        axisLine: { show: false },
+        axisLabel: { color: axisLabelColor, fontSize: 10 },
+        splitLine: { show: false },
+        min: 400,
+        max: 600
+      }
+    ],
     series: [
       {
-        name: 'SCFI东南亚(新加坡)',
+        name: 'SCFI综合指数',
         type: 'line',
-        data: [620,585,595,610,630,645,638,656],
+        yAxisIndex: 0,
         smooth: true,
         symbol: 'circle',
         symbolSize: 6,
-        lineStyle: { width: 3, color: '#10b981' },
-        itemStyle: { color: '#10b981', borderWidth: 2, borderColor: '#fff' },
-        areaStyle: { color: 'rgba(16,185,129,0.08)' }
+        data: [3420, 3180, 2950, 2720, 2850, 3100, 3250, 3380, 3220, 3150, 3080, 3206, 3276],
+        lineStyle: { color: colors.cyan, width: 2.5 },
+        itemStyle: { color: colors.cyan },
+        areaStyle: {
+          color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+            { offset: 0, color: 'rgba(8,145,178,0.15)' },
+            { offset: 1, color: 'rgba(8,145,178,0.01)' }
+          ])
+        }
       },
       {
-        name: 'SEAFI综合',
+        name: '东南亚航线运价指数',
         type: 'line',
-        data: [1120,1080,1105,1115,1130,1145,1130,1130],
+        yAxisIndex: 1,
         smooth: true,
-        symbol: 'circle',
+        symbol: 'diamond',
         symbolSize: 6,
-        lineStyle: { width: 3, color: '#f59e0b' },
-        itemStyle: { color: '#f59e0b', borderWidth: 2, borderColor: '#fff' },
-        areaStyle: { color: 'rgba(245,158,11,0.08)' }
-      },
-      {
-        name: '中国-越南',
-        type: 'line',
-        data: [480,450,465,475,490,505,498,510],
-        smooth: true,
-        symbol: 'circle',
-        symbolSize: 6,
-        lineStyle: { width: 3, color: '#06b6d4' },
-        itemStyle: { color: '#06b6d4', borderWidth: 2, borderColor: '#fff' },
-        areaStyle: { color: 'rgba(6,182,212,0.08)' }
+        data: [520, 490, 465, 445, 460, 485, 510, 530, 500, 485, 475, 490, 480],
+        lineStyle: { color: colors.gold, width: 2.5 },
+        itemStyle: { color: colors.gold }
       }
     ]
   });
 
-  // Chart 2: 中国至主要目的地综合运价对比
-  initChart('chart_destination_rates', {
-    grid: gridDefault,
-    tooltip: Object.assign({ trigger: 'axis', axisPointer: { type: 'shadow' } }, tooltipDefault),
-    legend: { data: ['20GP','40GP'], bottom: 0, textStyle: { color: '#4a5568', fontSize: 11 } },
+  // ========== Chart 2: Destination Rates Comparison ==========
+  var chart2 = echarts.init(document.getElementById('chart_destination_rates'), null, { renderer: 'svg' });
+  chart2.setOption({
+    tooltip: Object.assign({ trigger: 'axis', axisPointer: { type: 'shadow' } }, tooltipStyle),
+    legend: {
+      data: ['20GP', '40HQ'],
+      top: 0,
+      right: 10,
+      textStyle: { color: axisLabelColor, fontSize: 11 },
+      itemWidth: 14,
+      itemHeight: 8
+    },
+    grid: defaultGrid,
     xAxis: {
       type: 'category',
-      data: ['新加坡','巴生','雅加达','马尼拉','林查班','海防','那瓦西瓦','科伦坡','卡拉奇'],
-      axisLine: { lineStyle: { color: '#cbd5e1' } },
-      axisLabel: { color: '#64748b', fontSize: 11, rotate: 20 }
+      data: ['越南\n海防', '越南\n胡志明', '泰国\n林查班', '印尼\n雅加达', '马来\n巴生', '新加坡', '印度\n蒙德拉', '孟加拉\n吉大港'],
+      axisLine: { lineStyle: { color: axisLineColor } },
+      axisLabel: { color: axisLabelColor, fontSize: 9, interval: 0 },
+      axisTick: { show: false }
     },
     yAxis: {
       type: 'value',
-      name: 'USD',
-      nameTextStyle: { color: '#64748b', fontSize: 11 },
-      splitLine: { lineStyle: { color: '#f1f5f9' } },
+      name: 'USD/TEU',
+      nameTextStyle: { color: axisLabelColor, fontSize: 10 },
       axisLine: { show: false },
-      axisLabel: { color: '#64748b', fontSize: 11 }
+      axisLabel: { color: axisLabelColor, fontSize: 10 },
+      splitLine: { lineStyle: { color: splitLineColor } }
     },
     series: [
       {
         name: '20GP',
         type: 'bar',
+        data: [280, 320, 380, 420, 350, 400, 650, 700],
         barWidth: '30%',
-        data: [300,280,350,320,290,260,450,380,420],
-        itemStyle: { color: '#10b981', borderRadius: [4,4,0,0] }
+        itemStyle: {
+          color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+            { offset: 0, color: colors.cyan },
+            { offset: 1, color: '#67e8f9' }
+          ]),
+          borderRadius: [4, 4, 0, 0]
+        }
       },
       {
-        name: '40GP',
+        name: '40HQ',
         type: 'bar',
+        data: [480, 550, 650, 720, 600, 680, 1100, 1200],
         barWidth: '30%',
-        data: [600,560,700,640,580,520,900,760,840],
-        itemStyle: { color: '#06b6d4', borderRadius: [4,4,0,0] }
+        itemStyle: {
+          color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+            { offset: 0, color: colors.gold },
+            { offset: 1, color: '#fcd34d' }
+          ]),
+          borderRadius: [4, 4, 0, 0]
+        }
       }
     ]
   });
 
-  // Chart 3: 中国至东南亚/南亚月度货量
-  initChart('chart_monthly_volume', {
-    grid: gridDefault,
-    tooltip: Object.assign({ trigger: 'axis', axisPointer: { type: 'cross' } }, tooltipDefault),
-    legend: { data: ['东南亚货量','南亚货量'], bottom: 0, textStyle: { color: '#4a5568', fontSize: 11 } },
+  // ========== Chart 3: Monthly Volume ==========
+  var chart3 = echarts.init(document.getElementById('chart_monthly_volume'), null, { renderer: 'svg' });
+  chart3.setOption({
+    tooltip: Object.assign({ trigger: 'axis', axisPointer: { type: 'cross' } }, tooltipStyle),
+    legend: {
+      data: ['出口货量', '同比增长率'],
+      top: 0,
+      right: 10,
+      textStyle: { color: axisLabelColor, fontSize: 11 },
+      itemWidth: 14,
+      itemHeight: 8
+    },
+    grid: defaultGrid,
     xAxis: {
       type: 'category',
-      data: ['2026-01','2026-02','2026-03','2026-04','2026-05','2026-06','2026-07','2026-08(预)'],
-      axisLine: { lineStyle: { color: '#cbd5e1' } },
-      axisLabel: { color: '#64748b', fontSize: 11 }
+      data: ['25/08', '25/09', '25/10', '25/11', '25/12', '26/01', '26/02', '26/03', '26/04', '26/05', '26/06', '26/07', '26/08'],
+      axisLine: { lineStyle: { color: axisLineColor } },
+      axisLabel: { color: axisLabelColor, fontSize: 10, rotate: 30 },
+      axisTick: { show: false }
     },
-    yAxis: {
-      type: 'value',
-      name: '万TEU',
-      nameTextStyle: { color: '#64748b', fontSize: 11 },
-      splitLine: { lineStyle: { color: '#f1f5f9' } },
-      axisLine: { show: false },
-      axisLabel: { color: '#64748b', fontSize: 11 }
-    },
-    series: [
+    yAxis: [
       {
-        name: '东南亚货量',
-        type: 'bar',
-        barWidth: '35%',
-        data: [185,162,178,185,192,198,195,202],
-        itemStyle: { color: '#10b981', borderRadius: [4,4,0,0] }
+        type: 'value',
+        name: '万TEU',
+        position: 'left',
+        nameTextStyle: { color: axisLabelColor, fontSize: 10 },
+        axisLine: { show: false },
+        axisLabel: { color: axisLabelColor, fontSize: 10 },
+        splitLine: { lineStyle: { color: splitLineColor } },
+        min: 240,
+        max: 300
       },
       {
-        name: '南亚货量',
+        type: 'value',
+        name: 'YoY %',
+        position: 'right',
+        nameTextStyle: { color: axisLabelColor, fontSize: 10 },
+        axisLine: { show: false },
+        axisLabel: { color: axisLabelColor, fontSize: 10, formatter: '{value}%' },
+        splitLine: { show: false },
+        min: 0,
+        max: 15
+      }
+    ],
+    series: [
+      {
+        name: '出口货量',
         type: 'bar',
-        barWidth: '35%',
-        data: [68,58,65,68,72,75,74,78],
-        itemStyle: { color: '#8b5cf6', borderRadius: [4,4,0,0] }
+        yAxisIndex: 0,
+        data: [285, 272, 268, 260, 275, 282, 265, 278, 270, 272, 268, 280, 283],
+        barWidth: '45%',
+        itemStyle: {
+          color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+            { offset: 0, color: colors.green },
+            { offset: 1, color: '#86efac' }
+          ]),
+          borderRadius: [4, 4, 0, 0]
+        }
+      },
+      {
+        name: '同比增长率',
+        type: 'line',
+        yAxisIndex: 1,
+        smooth: true,
+        symbol: 'circle',
+        symbolSize: 6,
+        data: [8.2, 7.5, 6.8, 6.2, 7.0, 7.8, 6.5, 8.1, 7.2, 7.5, 6.8, 8.0, 8.5],
+        lineStyle: { color: colors.purple, width: 2.5 },
+        itemStyle: { color: colors.purple }
       }
     ]
   });
 
-  // Chart 4: 市场份额分布
-  initChart('chart_market_share', {
-    tooltip: Object.assign({ trigger: 'item', formatter: '{b}: {d}%' }, tooltipDefault),
-    legend: { orient: 'vertical', right: 10, top: 'center', textStyle: { color: '#4a5568', fontSize: 11 } },
+  // ========== Chart 4: Market Share Distribution ==========
+  var chart4 = echarts.init(document.getElementById('chart_market_share'), null, { renderer: 'svg' });
+  chart4.setOption({
+    tooltip: Object.assign({
+      trigger: 'item',
+      formatter: '{b}: {c}% ({d}%)'
+    }, tooltipStyle),
+    legend: {
+      orient: 'vertical',
+      right: 5,
+      top: 'center',
+      textStyle: { color: axisLabelColor, fontSize: 11 },
+      itemWidth: 12,
+      itemHeight: 8,
+      itemGap: 8
+    },
     series: [
       {
-        name: '市场份额',
+        name: '亚洲区域内市场份额',
         type: 'pie',
-        radius: ['40%', '70%'],
-        center: ['40%', '50%'],
+        radius: ['38%', '65%'],
+        center: ['38%', '50%'],
         avoidLabelOverlap: true,
-        itemStyle: { borderRadius: 6, borderColor: '#fff', borderWidth: 2 },
-        label: { show: true, formatter: '{b}\n{d}%', color: '#4a5568', fontSize: 11 },
-        labelLine: { lineStyle: { color: '#cbd5e1' } },
+        label: {
+          show: true,
+          formatter: '{b}\n{c}%',
+          fontSize: 10,
+          color: axisLabelColor
+        },
+        labelLine: {
+          length: 10,
+          length2: 8,
+          lineStyle: { color: '#cbd5e1' }
+        },
+        emphasis: {
+          label: { show: true, fontSize: 12, fontWeight: 'bold' },
+          itemStyle: {
+            shadowBlur: 10,
+            shadowOffsetX: 0,
+            shadowColor: 'rgba(0,0,0,0.12)'
+          }
+        },
         data: [
-          { value: 22.9, name: 'SITC海丰', itemStyle: { color: '#06b6d4' } },
-          { value: 14.5, name: 'COSCO中远海', itemStyle: { color: '#8b5cf6' } },
-          { value: 12.0, name: 'Wan Hai万海', itemStyle: { color: '#f59e0b' } },
-          { value: 10.5, name: 'PIL太平船务', itemStyle: { color: '#10b981' } },
-          { value: 9.0, name: 'RCL宏海箱运', itemStyle: { color: '#ec4899' } },
-          { value: 8.5, name: 'MSC', itemStyle: { color: '#6366f1' } },
-          { value: 7.0, name: 'Evergreen长荣', itemStyle: { color: '#14b8a6' } },
-          { value: 6.5, name: 'ONE', itemStyle: { color: '#f97316' } },
-          { value: 5.0, name: 'CMA CGM', itemStyle: { color: '#84cc16' } },
-          { value: 4.1, name: '其他', itemStyle: { color: '#94a3b8' } }
+          { value: 8, name: 'SITC 海丰', itemStyle: { color: colors.cyan } },
+          { value: 7, name: 'Wan Hai 万海', itemStyle: { color: colors.green } },
+          { value: 6, name: 'PIL 太平船务', itemStyle: { color: colors.gold } },
+          { value: 5, name: 'COSCO 中远', itemStyle: { color: colors.purple } },
+          { value: 4, name: 'MSC 地中海', itemStyle: { color: colors.blue } },
+          { value: 3, name: 'Maersk 马士基', itemStyle: { color: colors.orange } },
+          { value: 3, name: 'RCL 宏海', itemStyle: { color: colors.pink } },
+          { value: 2, name: 'X-Press Feeders', itemStyle: { color: colors.indigo } },
+          { value: 2, name: 'CMA CGM 达飞', itemStyle: { color: colors.teal } },
+          { value: 2, name: 'ONE/其他', itemStyle: { color: '#94a3b8' } }
         ]
       }
     ]
+  });
+
+  // Responsive resize
+  window.addEventListener('resize', function() {
+    chart1.resize();
+    chart2.resize();
+    chart3.resize();
+    chart4.resize();
   });
 
 })();
