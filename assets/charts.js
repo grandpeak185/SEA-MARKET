@@ -35,7 +35,7 @@
   chart1.setOption({
     tooltip: Object.assign({ trigger: 'axis' }, tooltipStyle),
     legend: {
-      data: ['SCFI综合指数', '东南亚航线运价指数'],
+      data: ['SCFI综合指数', 'CCFI东南亚航线指数'],
       top: 0,
       right: 10,
       textStyle: { color: axisLabelColor, fontSize: 11 },
@@ -65,14 +65,14 @@
       },
       {
         type: 'value',
-        name: '东南亚(点)',
+        name: 'CCFI东南亚',
         position: 'right',
         nameTextStyle: { color: axisLabelColor, fontSize: 10 },
         axisLine: { show: false },
         axisLabel: { color: axisLabelColor, fontSize: 10 },
         splitLine: { show: false },
-        min: 400,
-        max: 600
+        min: 950,
+        max: 1150
       }
     ],
     series: [
@@ -94,13 +94,13 @@
         }
       },
       {
-        name: '东南亚航线运价指数',
+        name: 'CCFI东南亚航线指数',
         type: 'line',
         yAxisIndex: 1,
         smooth: true,
         symbol: 'diamond',
         symbolSize: 6,
-        data: [520, 490, 465, 445, 460, 485, 510, 530, 500, 485, 475, 490, 480],
+        data: [1080, 1060, 1040, 1020, 1035, 1055, 1070, 1085, 1065, 1050, 1040, 1066, 1036],
         lineStyle: { color: colors.gold, width: 2.5 },
         itemStyle: { color: colors.gold }
       }
