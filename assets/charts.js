@@ -1,212 +1,263 @@
-/* 中国至东南亚/南亚集装箱航运市场纵览 — 图表脚本
- * IIFE 自执行格式 · SVG 渲染 · 浅色玻璃框 tooltip · 标题由 HTML <h3> 提供
- */
+/* 中国至东南亚/南亚集装箱航运市场纵览 - 图表脚本
+   IIFE 自执行格式，SVG 渲染，颜色取自 CSS 变量 */
 (function () {
-  'use strict';
+  var root = document.documentElement;
+  var cs = getComputedStyle(root);
+  var green = cs.getPropertyValue('--accent').trim() || '#0e9f6e';
+  var gold = cs.getPropertyValue('--accent2').trim() || '#c8920a';
+  var cyan = cs.getPropertyValue('--accent3').trim() || '#0891b2';
+  var purple = cs.getPropertyValue('--accent4').trim() || '#7c3aed';
+  var ink = cs.getPropertyValue('--ink').trim() || '#15241f';
+  var muted = cs.getPropertyValue('--muted').trim() || '#5d6f68';
+  var rule = cs.getPropertyValue('--rule').trim() || '#dcebe4';
+  var bg2 = cs.getPropertyValue('--bg2').trim() || '#ffffff';
 
-  var GREEN = '#10b981', GOLD = '#f59e0b', CYAN = '#06b6d4', PURPLE = '#8b5cf6';
-  var TEXT = '#1a2332', MUTED = '#5b6b80', BORDER = '#e2e8f0';
-
-  // 通用 grid 默认值
-  var GRID = { left: 55, right: 25, top: 35, bottom: 45, containLabel: false };
-
-  // 浅色玻璃框 tooltip
-  var GLASS_TOOLTIP = {
-    backgroundColor: 'rgba(255,255,255,0.95)',
-    borderColor: '#e2e8f0',
-    borderWidth: 1,
-    textStyle: { color: '#1a2332' },
-    extraCssText: 'box-shadow:0 6px 22px rgba(26,35,50,.12);border-radius:10px;backdrop-filter:blur(4px);'
-  };
-
-  function axisLine(color) {
-    return { lineStyle: { color: color || BORDER } };
-  }
-  function splitLine() {
-    return { lineStyle: { color: '#eef2f7', type: 'dashed' } };
-  }
-
-  function init(id) {
-    var dom = document.getElementById(id);
-    if (!dom) return null;
-    var chart = echarts.init(dom, null, { renderer: 'svg' });
-    return chart;
+  /* 浅色玻璃框 tooltip 公共配置 */
+  function glassTip(extra) {
+    var base = {
+      trigger: 'axis',
+      backgroundColor: 'rgba(255,255,255,0.95)',
+      borderColor: '#e2e8f0',
+      borderWidth: 1,
+      textStyle: { color: '#1a2332', fontSize: 12 },
+      extraCssText: 'box-shadow:0 4px 18px rgba(14,80,60,.14);border-radius:8px;backdrop-filter:blur(6px);',
+      appendToBody: true
+    };
+    if (extra) { for (var k in extra) { base[k] = extra[k]; } }
+    return base;
   }
 
-  // ---------- 图表1：东南亚/南亚航线运价指数走势 ----------
-  function chartSeaIndex() {
-    var chart = init('chart_sea_index');
-    if (!chart) return;
-    var months = ['25-10', '25-11', '25-12', '26-01', '26-02', '26-03', '26-04', '26-05', '26-06', '26-07', '26-08'];
-    var ccfi = [1070, 1085, 1090, 1080, 1060, 1050, 1040, 1030, 1025, 1036.32, 1016.38];
-    var scfi = [690, 700, 705, 698, 690, 682, 675, 668, 662, 656, 650];
+  /* grid 默认值 */
+  var gridDefault = { left: 55, right: 25, top: 35, bottom: 45, containLabel: false };
 
-    chart.setOption({
-      tooltip: Object.assign({ trigger: 'axis' }, GLASS_TOOLTIP),
-      legend: {
-        data: ['CCFI东南亚航线指数', 'SCFI远东-东南亚(USD/TEU)'],
-        top: 0, right: 10, textStyle: { color: MUTED, fontSize: 11 }, itemWidth: 14, itemHeight: 8
-      },
-      grid: GRID,
+  /* ---------- 图表1：东南亚/南亚航线运价指数走势 ---------- */
+  var c1 = document.getElementById('chart_sea_index');
+  if (c1) {
+    var chart1 = echarts.init(c1, null, { renderer: 'svg' });
+    var months = ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月'];
+    var cicfi = [648, 610, 625, 640, 635, 628, 622, 631.63];
+    chart1.setOption({
+      tooltip: glassTip({
+        formatter: function (p) {
+          var d = p[0];
+          return d.name + '<br/>CICFI东南亚航线：<b>' + d.value + '</b>';
+        }
+      }),
+      legend: { show: false },
+      grid: gridDefault,
       xAxis: {
-        type: 'category', data: months, boundaryGap: false,
-        axisLine: axisLine(), axisLabel: { color: MUTED, fontSize: 11 },
-        axisTick: { show: false }
+        type: 'category',
+        data: months,
+        boundaryGap: false,
+        axisLine: { lineStyle: { color: rule } },
+        axisTick: { show: false },
+        axisLabel: { color: muted, fontSize: 11 }
       },
-      yAxis: [
-        {
-          type: 'value', name: '指数', position: 'left',
-          nameTextStyle: { color: MUTED, fontSize: 11 }, min: 900, max: 1150,
-          axisLine: { show: false }, axisTick: { show: false },
-          axisLabel: { color: MUTED, fontSize: 11 }, splitLine: splitLine()
+      yAxis: {
+        type: 'value',
+        name: '指数',
+        nameTextStyle: { color: muted, fontSize: 11, padding: [0, 0, 0, -30] },
+        min: 580,
+        max: 680,
+        axisLine: { show: false },
+        axisTick: { show: false },
+        splitLine: { lineStyle: { color: rule, type: 'dashed' } },
+        axisLabel: { color: muted, fontSize: 11 }
+      },
+      series: [{
+        type: 'line',
+        data: cicfi,
+        smooth: true,
+        symbol: 'circle',
+        symbolSize: 7,
+        lineStyle: { color: green, width: 3 },
+        itemStyle: { color: green, borderColor: '#fff', borderWidth: 2 },
+        areaStyle: {
+          color: {
+            type: 'linear', x: 0, y: 0, x2: 0, y2: 1,
+            colorStops: [
+              { offset: 0, color: 'rgba(14,159,110,.28)' },
+              { offset: 1, color: 'rgba(14,159,110,.02)' }
+            ]
+          }
         },
-        {
-          type: 'value', name: 'USD/TEU', position: 'right',
-          nameTextStyle: { color: MUTED, fontSize: 11 }, min: 600, max: 740,
-          axisLine: { show: false }, axisTick: { show: false },
-          axisLabel: { color: MUTED, fontSize: 11 }, splitLine: { show: false }
-        }
-      ],
-      series: [
-        {
-          name: 'CCFI东南亚航线指数', type: 'line', smooth: true, symbol: 'circle', symbolSize: 6,
-          data: ccfi, yAxisIndex: 0,
-          lineStyle: { color: PURPLE, width: 3 }, itemStyle: { color: PURPLE },
-          areaStyle: { color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-            { offset: 0, color: 'rgba(139,92,246,.22)' }, { offset: 1, color: 'rgba(139,92,246,.02)' }
-          ]) },
-          markPoint: { symbolSize: 54, data: [{ name: '最新', value: '1016.38', xAxis: 10, yAxis: 1016.38 }], label: { fontSize: 10, color: '#fff' }, itemStyle: { color: PURPLE } }
+        markPoint: {
+          symbol: 'pin', symbolSize: 46,
+          itemStyle: { color: gold },
+          label: { color: '#fff', fontSize: 10, fontWeight: 700 },
+          data: [{ name: '最新', coord: ['8月', 631.63], value: '631.63' }]
         },
-        {
-          name: 'SCFI远东-东南亚(USD/TEU)', type: 'line', smooth: true, symbol: 'circle', symbolSize: 6,
-          data: scfi, yAxisIndex: 1,
-          lineStyle: { color: GOLD, width: 3, type: 'dashed' }, itemStyle: { color: GOLD }
+        markLine: {
+          symbol: 'none',
+          lineStyle: { color: purple, type: 'dashed', width: 1.2 },
+          label: { color: purple, fontSize: 10, formatter: '六周跌势后反弹' },
+          data: [{ yAxis: 622, name: '7月低点' }]
         }
-      ]
+      }]
     });
-    window.addEventListener('resize', function () { chart.resize(); });
+    window.addEventListener('resize', function () { chart1.resize(); });
   }
 
-  // ---------- 图表2：中国至主要目的地综合运价对比 ----------
-  function chartDestinationRates() {
-    var chart = init('chart_destination_rates');
-    if (!chart) return;
-    var dests = ['越南\n胡志明', '泰国\n曼谷', '印尼\n雅加达', '马来\n巴生', '新加坡', '印度\n那瓦舍瓦', '孟加拉\n吉大港', '巴基斯坦\n卡拉奇', '斯里兰卡\n科伦坡'];
-    var rates = [550, 300, 560, 480, 650, 820, 950, 1050, 860];
-    var colors = [GREEN, GREEN, GREEN, GREEN, CYAN, GOLD, GOLD, GOLD, GOLD];
-
-    chart.setOption({
-      tooltip: Object.assign({ trigger: 'axis', axisPointer: { type: 'shadow' } }, GLASS_TOOLTIP,
-        { formatter: function (p) { return p[0].name.replace('\n', '·') + '<br/>即期运价：<b>' + p[0].value + '</b> USD/TEU'; } }),
+  /* ---------- 图表2：中国至主要目的地综合运价对比 ---------- */
+  var c2 = document.getElementById('chart_destination_rates');
+  if (c2) {
+    var chart2 = echarts.init(c2, null, { renderer: 'svg' });
+    var dest = ['胡志明\n(越南)', '林查班\n(泰国)', '新加坡', '雅加达\n(印尼)', '巴生\n(马来西亚)', '那瓦舍瓦\n(印度)', '卡拉奇\n(巴基斯坦)', '吉大港\n(孟加拉)'];
+    var rates = [1350, 1600, 1150, 1800, 1250, 2400, 2600, 2300];
+    chart2.setOption({
+      tooltip: glassTip({
+        formatter: function (p) {
+          return p.name.replace(/\n/g, '') + '<br/>40尺高柜参考运价：<b>$' + p.value + '/FEU</b><br/><span style="color:#888;font-size:11px">需订舱系统/合同价确认</span>';
+        }
+      }),
       grid: { left: 55, right: 25, top: 35, bottom: 55, containLabel: false },
       xAxis: {
-        type: 'category', data: dests,
-        axisLine: axisLine(), axisTick: { show: false },
-        axisLabel: { color: MUTED, fontSize: 10, interval: 0 }
+        type: 'category',
+        data: dest,
+        axisLine: { lineStyle: { color: rule } },
+        axisTick: { show: false },
+        axisLabel: { color: muted, fontSize: 10, interval: 0, lineHeight: 13 }
       },
       yAxis: {
-        type: 'value', name: 'USD/TEU',
-        nameTextStyle: { color: MUTED, fontSize: 11 },
-        axisLine: { show: false }, axisTick: { show: false },
-        axisLabel: { color: MUTED, fontSize: 11 }, splitLine: splitLine()
+        type: 'value',
+        name: 'USD/FEU',
+        nameTextStyle: { color: muted, fontSize: 11, padding: [0, 0, 0, -36] },
+        axisLine: { show: false },
+        axisTick: { show: false },
+        splitLine: { lineStyle: { color: rule, type: 'dashed' } },
+        axisLabel: { color: muted, fontSize: 11 }
       },
       series: [{
-        type: 'bar', data: rates.map(function (v, i) { return { value: v, itemStyle: { color: colors[i], borderRadius: [5, 5, 0, 0] } }; }),
+        type: 'bar',
+        data: rates,
         barWidth: '52%',
-        label: { show: true, position: 'top', color: TEXT, fontSize: 11, fontWeight: 'bold' }
+        itemStyle: {
+          borderRadius: [6, 6, 0, 0],
+          color: function (p) {
+            var pal = [gold, gold, green, gold, green, cyan, cyan, purple];
+            return pal[p.dataIndex] || gold;
+          }
+        },
+        label: {
+          show: true, position: 'top', color: ink, fontSize: 10.5, fontWeight: 700,
+          formatter: '${c}'
+        }
       }]
     });
-    window.addEventListener('resize', function () { chart.resize(); });
+    window.addEventListener('resize', function () { chart2.resize(); });
   }
 
-  // ---------- 图表3：中国至东南亚/南亚月度货量 ----------
-  function chartMonthlyVolume() {
-    var chart = init('chart_monthly_volume');
-    if (!chart) return;
-    var months = ['25-10', '25-11', '25-12', '26-01', '26-02', '26-03', '26-04', '26-05', '26-06', '26-07', '26-08'];
-    var seAsia = [128, 130, 133, 120, 114, 126, 122, 124, 126, 128, 131];
-    var sAsia = [22, 23, 24, 21, 18, 22, 21, 21, 22, 22, 23];
-
-    chart.setOption({
-      tooltip: Object.assign({ trigger: 'axis', axisPointer: { type: 'shadow' } }, GLASS_TOOLTIP),
-      legend: { data: ['东南亚(万TEU)', '南亚(万TEU)'], top: 0, right: 10, textStyle: { color: MUTED, fontSize: 11 }, itemWidth: 14, itemHeight: 8 },
-      grid: GRID,
+  /* ---------- 图表3：中国至东南亚/南亚月度货量 ---------- */
+  var c3 = document.getElementById('chart_monthly_volume');
+  if (c3) {
+    var chart3 = echarts.init(c3, null, { renderer: 'svg' });
+    var mMonths = ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月'];
+    var seVol = [36, 30, 34, 37, 36, 35, 37, 39];
+    var saVol = [6, 5, 6, 6, 6, 6, 7, 7];
+    chart3.setOption({
+      tooltip: glassTip({
+        formatter: function (p) {
+          var s = p[0].name + '<br/>';
+          var tot = 0;
+          p.forEach(function (d) { s += d.marker + d.seriesName + '：<b>' + d.value + '万TEU</b><br/>'; tot += d.value; });
+          s += '合计：<b>' + tot + '万TEU</b>';
+          return s;
+        }
+      }),
+      legend: {
+        data: ['东南亚', '南亚'],
+        top: 0, right: 10,
+        textStyle: { color: muted, fontSize: 11 },
+        itemWidth: 12, itemHeight: 12
+      },
+      grid: { left: 55, right: 25, top: 38, bottom: 45, containLabel: false },
       xAxis: {
-        type: 'category', data: months,
-        axisLine: axisLine(), axisTick: { show: false }, axisLabel: { color: MUTED, fontSize: 11 }
+        type: 'category',
+        data: mMonths,
+        axisLine: { lineStyle: { color: rule } },
+        axisTick: { show: false },
+        axisLabel: { color: muted, fontSize: 11 }
       },
       yAxis: {
-        type: 'value', name: '万TEU', nameTextStyle: { color: MUTED, fontSize: 11 },
-        axisLine: { show: false }, axisTick: { show: false },
-        axisLabel: { color: MUTED, fontSize: 11 }, splitLine: splitLine()
+        type: 'value',
+        name: '万TEU',
+        nameTextStyle: { color: muted, fontSize: 11, padding: [0, 0, 0, -30] },
+        axisLine: { show: false },
+        axisTick: { show: false },
+        splitLine: { lineStyle: { color: rule, type: 'dashed' } },
+        axisLabel: { color: muted, fontSize: 11 }
       },
       series: [
         {
-          name: '东南亚(万TEU)', type: 'bar', stack: 'vol', data: seAsia,
-          barWidth: '45%', itemStyle: { color: GREEN, borderRadius: [0, 0, 0, 0] }
+          name: '东南亚', type: 'bar', stack: 'vol', data: seVol, barWidth: '48%',
+          itemStyle: { color: cyan, borderRadius: [0, 0, 0, 0] }
         },
         {
-          name: '南亚(万TEU)', type: 'bar', stack: 'vol', data: sAsia,
-          itemStyle: { color: GOLD, borderRadius: [5, 5, 0, 0] },
-          label: { show: true, position: 'top', color: TEXT, fontSize: 10, fontWeight: 'bold',
-            formatter: function (p) { var idx = p.dataIndex; return (seAsia[idx] + sAsia[idx]); } }
+          name: '南亚', type: 'bar', stack: 'vol', data: saVol,
+          itemStyle: { color: purple, borderRadius: [6, 6, 0, 0] },
+          label: {
+            show: true, position: 'top', color: ink, fontSize: 10.5, fontWeight: 700,
+            formatter: function (p) { return (p.value + seVol[p.dataIndex]); }
+          }
         }
       ]
     });
-    window.addEventListener('resize', function () { chart.resize(); });
+    window.addEventListener('resize', function () { chart3.resize(); });
   }
 
-  // ---------- 图表4：市场份额分布 ----------
-  function chartMarketShare() {
-    var chart = init('chart_market_share');
-    if (!chart) return;
-    var data = [
-      { value: 12, name: 'Wan Hai 万海', itemStyle: { color: GREEN } },
-      { value: 10, name: 'COSCO 中远海运', itemStyle: { color: PURPLE } },
-      { value: 9, name: 'CMA CGM 达飞', itemStyle: { color: '#6366f1' } },
-      { value: 9, name: 'MSC 地中海航运', itemStyle: { color: '#0ea5e9' } },
-      { value: 8, name: 'Maersk 马士基', itemStyle: { color: '#14b8a6' } },
-      { value: 8, name: 'SITC 海丰国际', itemStyle: { color: CYAN } },
-      { value: 6, name: 'PIL 太平船务', itemStyle: { color: '#22c55e' } },
-      { value: 6, name: 'ONE 海洋网联', itemStyle: { color: '#a855f7' } },
-      { value: 6, name: 'Evergreen 长荣', itemStyle: { color: '#0284c7' } },
-      { value: 5, name: 'OOCL 东方海外', itemStyle: { color: '#f97316' } },
-      { value: 4, name: 'RCL 宏海箱运', itemStyle: { color: GOLD } },
-      { value: 3, name: 'X-Press Feeders', itemStyle: { color: '#ec4899' } },
-      { value: 14, name: '其他', itemStyle: { color: '#cbd5e1' } }
+  /* ---------- 图表4：亚洲区内市场份额分布 ---------- */
+  var c4 = document.getElementById('chart_market_share');
+  if (c4) {
+    var chart4 = echarts.init(c4, null, { renderer: 'svg' });
+    var share = [
+      { name: 'SITC 海丰国际', value: 8 },
+      { name: 'COSCO 中远海运', value: 9 },
+      { name: 'Maersk 马士基', value: 10 },
+      { name: 'MSC 地中海航运', value: 12 },
+      { name: 'CMA CGM 达飞', value: 8 },
+      { name: 'Wan Hai 万海', value: 7 },
+      { name: 'PIL 太平船务', value: 6 },
+      { name: 'ONE 海洋网联', value: 5 },
+      { name: 'Evergreen 长荣', value: 6 },
+      { name: 'RCL 宏海箱运', value: 4 },
+      { name: 'X-Press Feeders', value: 5 },
+      { name: '其他', value: 20 }
     ];
-
-    chart.setOption({
-      tooltip: Object.assign({ trigger: 'item', formatter: '{b}<br/>份额：<b>{c}%</b> ({d}%)' }, GLASS_TOOLTIP),
+    var pieColors = [cyan, purple, gold, gold, purple, green, gold, cyan, purple, gold, cyan, '#b8c4be'];
+    chart4.setOption({
+      tooltip: glassTip({
+        trigger: 'item',
+        formatter: function (p) {
+          return p.name + '<br/>intra-Asia份额：<b>' + p.value + '%</b>（' + p.percent + '%）';
+        }
+      }),
       legend: {
-        type: 'scroll', orient: 'vertical', right: 5, top: 'center',
-        textStyle: { color: MUTED, fontSize: 10.5 }, itemWidth: 10, itemHeight: 8
+        type: 'scroll',
+        orient: 'vertical',
+        right: 5, top: 'center',
+        itemWidth: 10, itemHeight: 10,
+        textStyle: { color: muted, fontSize: 10.5 },
+        pageTextStyle: { color: muted }
       },
       series: [{
-        type: 'pie', radius: ['38%', '64%'], center: ['36%', '52%'],
-        avoidLabelOverlap: true, padAngle: 2,
-        itemStyle: { borderRadius: 5, borderColor: '#fff', borderWidth: 2 },
-        label: { show: true, position: 'outside', color: TEXT, fontSize: 10.5, formatter: '{b}\n{c}%' },
-        labelLine: { length: 8, length2: 8, lineStyle: { color: BORDER } },
-        emphasis: { label: { fontSize: 12, fontWeight: 'bold' }, scaleSize: 6 },
-        data: data
+        type: 'pie',
+        radius: ['38%', '66%'],
+        center: ['38%', '52%'],
+        avoidLabelOverlap: true,
+        itemStyle: { borderColor: bg2, borderWidth: 2 },
+        label: {
+          show: true, color: ink, fontSize: 10.5, fontWeight: 600,
+          formatter: function (p) {
+            return p.value >= 8 ? p.name.split(' ')[0] + '\n' + p.value + '%' : '';
+          }
+        },
+        labelLine: { length: 8, length2: 8, lineStyle: { color: rule } },
+        data: share.map(function (d, i) {
+          d.itemStyle = { color: pieColors[i] };
+          return d;
+        })
       }]
     });
-    window.addEventListener('resize', function () { chart.resize(); });
-  }
-
-  // 启动
-  function boot() {
-    if (typeof echarts === 'undefined') return;
-    chartSeaIndex();
-    chartDestinationRates();
-    chartMonthlyVolume();
-    chartMarketShare();
-  }
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', boot);
-  } else {
-    boot();
+    window.addEventListener('resize', function () { chart4.resize(); });
   }
 })();
