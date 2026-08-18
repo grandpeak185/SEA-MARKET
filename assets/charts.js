@@ -103,7 +103,7 @@
   if (c2) {
     var chart2 = echarts.init(c2, null, { renderer: 'svg' });
     var dest = ['胡志明\n(越南)', '林查班\n(泰国)', '新加坡', '雅加达\n(印尼)', '巴生\n(马来西亚)', '那瓦舍瓦\n(印度)', '卡拉奇\n(巴基斯坦)', '吉大港\n(孟加拉)'];
-    var rates = [1350, 1600, 1150, 1800, 1250, 2400, 2600, 2300];
+    var rates = [1350, 1600, 1150, 1800, 1250, 2353, 2600, 2300];
     chart2.setOption({
       tooltip: glassTip({
         formatter: function (p) {
